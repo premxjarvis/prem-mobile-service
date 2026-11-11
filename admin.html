@@ -2,565 +2,253 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080808">
 <title>PREM MOBILE SERVICE | Admin</title>
-
 <style>
-:root{
-  --bg:#080808;--card:#141414;--red:#ed1c24;
-  --text:#fff;--muted:#aaa;--border:#292929;
-}
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif;
-}
-.container{max-width:1100px;margin:auto;padding:18px}
-.logo{font-size:23px;font-weight:900}
-.logo span{color:var(--red)}
-.sub{color:var(--muted);font-size:13px}
-.card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:15px;padding:18px;margin-top:16px;
-}
-input,textarea,select{
-  width:100%;padding:13px;margin:7px 0 14px;
-  background:#090909;color:white;
-  border:1px solid #333;border-radius:9px;
-}
-label{font-size:13px;color:#ccc}
-button{cursor:pointer;font-weight:bold}
-.btn{
-  border:0;border-radius:9px;padding:12px 16px;
-  background:var(--red);color:white;
-}
-.secondary{background:#303030}
-.danger{background:#8d1118}
-.full{width:100%}
+body{margin:0;background:#080808;color:#eee;font-family:Arial,sans-serif;padding:18px}
+.wrap{max-width:1000px;margin:auto}
+h1{color:#ff3030}
+.card{background:#151515;border:1px solid #333;border-radius:14px;padding:18px;margin:15px 0}
+input,textarea,select{width:100%;padding:12px;margin:7px 0;background:#080808;color:white;border:1px solid #444;border-radius:8px}
+button{padding:11px 15px;margin:5px 3px;border:0;border-radius:8px;background:#e32636;color:white;font-weight:bold;cursor:pointer}
+button.secondary{background:#333}
+button.danger{background:#9d1725}
+button:disabled{opacity:.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.item{background:#101010;border:1px solid #333;padding:14px;border-radius:10px;margin:10px 0}
+small,.muted{color:#aaa}
 .hidden{display:none!important}
-.login{max-width:420px;margin:55px auto}
-.header{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:12px;flex-wrap:wrap;
-}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin-top:16px;
-}
-.stat{
-  background:#171717;border:1px solid var(--border);
-  padding:16px;border-radius:12px;
-}
-.stat strong{
-  display:block;font-size:25px;color:var(--red);
-}
-.stat small{color:var(--muted)}
-.service{
-  border:1px solid var(--border);border-radius:12px;
-  padding:15px;margin-top:12px;background:#101010;
-}
-.service h3{margin:0 0 8px}
-.service p{font-size:13px;color:var(--muted);line-height:1.5}
-.price{color:#ff555b;font-weight:bold}
-.badge{
-  background:#292929;padding:5px 9px;
-  border-radius:20px;font-size:11px;
-}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.modal{
-  position:fixed;inset:0;background:#000d;
-  display:flex;align-items:center;justify-content:center;
-  padding:15px;z-index:10;
-}
-.modal-box{
-  width:100%;max-width:650px;max-height:92vh;
-  overflow:auto;background:#151515;
-  border:1px solid #444;border-radius:15px;padding:20px;
-}
-.modal-head{
-  display:flex;justify-content:space-between;align-items:center;
-}
-.close{background:none;color:white;border:0;font-size:25px}
-.notice{font-size:12px;color:#888;line-height:1.5}
-#message{font-size:13px;color:#ff7777;margin-top:12px}
-hr{border:0;border-top:1px solid var(--border);margin:18px 0}
-.lang-box{
-  border:1px solid #333;border-radius:12px;
-  padding:13px;margin:14px 0;background:#101010;
-}
-.lang-box h3{color:#ff555b;margin:0 0 10px}
-@media(max-width:500px){
-  .stats{grid-template-columns:1fr 1fr}
-  .container{padding:12px}
-}
+.status{padding:10px;border-radius:8px;background:#202020;margin:10px 0}
 </style>
 </head>
-
 <body>
-<div class="container">
+<div class="wrap">
+<h1>PREM MOBILE SERVICE</h1>
+<p class="muted">Secure Admin Dashboard</p>
 
-<section id="loginPage" class="login card">
-  <div class="logo">PREM <span>MOBILE SERVICE</span></div>
-  <p class="sub">PRIVATE ADMIN DASHBOARD</p>
-  <hr>
-
-  <div id="loginForm">
-    <h2>Admin Login 🔐</h2>
-    <label>Admin Email</label>
-    <input id="email" type="email" placeholder="Enter email">
-    <label>Password</label>
-    <input id="password" type="password" placeholder="Enter password">
-    <button class="btn full" id="loginBtn">LOGIN</button>
-    <button id="forgotBtn" style="background:none;border:0;color:#ff555b;padding:12px 0">
-      Forgot Password?
-    </button>
-  </div>
-
-  <div id="forgotForm" class="hidden">
-    <h2>Reset Password</h2>
-    <input id="resetEmail" type="email" placeholder="Admin email">
-    <button class="btn full" id="resetBtn">SEND RESET EMAIL</button>
-    <button id="backBtn" style="background:none;border:0;color:#ff555b;padding:12px 0">
-      Back to Login
-    </button>
-  </div>
-
-  <p id="message"></p>
-  <p class="notice">Authorised administrator access only.</p>
-</section>
-
-<section id="dashboard" class="hidden">
-
-  <div class="header">
-    <div>
-      <div class="logo">PREM <span>ADMIN</span></div>
-      <p class="sub">Multilingual Service Management</p>
-    </div>
-    <button class="btn danger" id="logoutBtn">LOGOUT</button>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><strong id="total">0</strong><small>Total Services</small></div>
-    <div class="stat"><strong id="active">0</strong><small>Active</small></div>
-    <div class="stat"><strong id="soon">0</strong><small>Coming Soon</small></div>
-  </div>
-
-  <div class="card">
-    <div class="header">
-      <div>
-        <h2>Services Management</h2>
-        <p class="sub">Manage services, languages and prices.</p>
-      </div>
-      <button class="btn" id="addBtn">+ ADD SERVICE</button>
-    </div>
-
-    <input id="search" placeholder="Search services...">
-    <div id="serviceList"></div>
-
-    <div id="emptyDatabase" class="hidden">
-      <hr>
-      <p class="sub">Database is empty.</p>
-      <button class="btn" id="seedBtn">LOAD STARTER SERVICES</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Firebase Connection</h3>
-    <p id="connection" class="sub">Connecting...</p>
-  </div>
-</section>
+<div class="card" id="loginBox">
+<h2>Admin Login</h2>
+<input id="email" type="email" placeholder="Admin email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">LOGIN</button>
+<button class="secondary" onclick="resetPassword()">Forgot Password?</button>
+<div id="loginMsg" class="status">Login required.</div>
 </div>
 
-<div id="modal" class="modal hidden">
-  <div class="modal-box">
+<div id="dashboard" class="hidden">
+<div class="card">
+<h2>Dashboard</h2>
+<div class="grid">
+<div class="item">Total Services: <b id="totalCount">0</b></div>
+<div class="item">Active: <b id="activeCount">0</b></div>
+<div class="item">Coming Soon: <b id="soonCount">0</b></div>
+</div>
+<button class="secondary" onclick="logout()">LOGOUT</button>
+<button onclick="loadStarter()">LOAD 18 STARTER SERVICES</button>
+<p class="muted">Starter services can only be loaded when the database is empty.</p>
+<div id="message" class="status">Connected.</div>
+</div>
 
-    <div class="modal-head">
-      <h2 id="modalTitle">Add Service</h2>
-      <button class="close" id="closeModal">×</button>
-    </div>
+<div class="card">
+<h2 id="formTitle">Add New Service</h2>
+<input id="serviceId" type="hidden">
+<label>Service Name</label>
+<input id="name" placeholder="Example: Smartphone Support">
+<label>Category</label>
+<input id="category" placeholder="Example: Mobile Services">
+<label>Description</label>
+<textarea id="description" rows="3" placeholder="Service details"></textarea>
+<label>Price</label>
+<input id="price" placeholder="Example: Starting ₹50">
+<label>Status</label>
+<select id="status">
+<option value="active">Active</option>
+<option value="soon">Coming Soon</option>
+</select>
+<h3>Translations</h3>
+<div class="grid">
+<div><b>Hindi Name</b><input id="hiName"><textarea id="hiDesc" placeholder="Hindi description"></textarea></div>
+<div><b>Hinglish Name</b><input id="hinglishName"><textarea id="hinglishDesc" placeholder="Hinglish description"></textarea></div>
+<div><b>Bhojpuri Name</b><input id="bhoName"><textarea id="bhoDesc" placeholder="Bhojpuri description"></textarea></div>
+<div><b>Bengali Name</b><input id="bnName"><textarea id="bnDesc" placeholder="Bengali description"></textarea></div>
+</div>
+<button onclick="saveService()">SAVE SERVICE</button>
+<button class="secondary" onclick="clearForm()">CLEAR FORM</button>
+</div>
 
-    <input type="hidden" id="serviceId">
-
-    <label>Category</label>
-    <input id="serviceCategory" placeholder="Example: Digital Services">
-
-    <label>Price</label>
-    <input id="servicePrice" placeholder="Example: ₹100–₹200">
-
-    <label>Status</label>
-    <select id="serviceStatus">
-      <option value="active">Active</option>
-      <option value="soon">Coming Soon</option>
-    </select>
-
-    <hr>
-    <h3>🌐 Service Translations</h3>
-    <p class="notice">
-      Fill in the service name and description in all five languages.
-      English is also saved in the original database fields for compatibility.
-    </p>
-
-    <div class="lang-box">
-      <h3>1. English</h3>
-      <label>Service Name</label>
-      <input id="enName" placeholder="English service name">
-      <label>Description</label>
-      <textarea id="enDesc" rows="3" placeholder="English description"></textarea>
-    </div>
-
-    <div class="lang-box">
-      <h3>2. हिन्दी (Hindi)</h3>
-      <label>सेवा का नाम</label>
-      <input id="hiName" placeholder="सेवा का नाम">
-      <label>विवरण</label>
-      <textarea id="hiDesc" rows="3" placeholder="सेवा का विवरण"></textarea>
-    </div>
-
-    <div class="lang-box">
-      <h3>3. Hinglish</h3>
-      <label>Service Name</label>
-      <input id="hinglishName" placeholder="Service ka naam">
-      <label>Description</label>
-      <textarea id="hinglishDesc" rows="3" placeholder="Service ki details"></textarea>
-    </div>
-
-    <div class="lang-box">
-      <h3>4. भोजपुरी (Bhojpuri)</h3>
-      <label>सेवा के नाम</label>
-      <input id="bhoName" placeholder="सेवा के नाम">
-      <label>विवरण</label>
-      <textarea id="bhoDesc" rows="3" placeholder="सेवा के विवरण"></textarea>
-    </div>
-
-    <div class="lang-box">
-      <h3>5. বাংলা (Bengali)</h3>
-      <label>পরিষেবার নাম</label>
-      <input id="bnName" placeholder="পরিষেবার নাম">
-      <label>বিবরণ</label>
-      <textarea id="bnDesc" rows="3" placeholder="পরিষেবার বিবরণ"></textarea>
-    </div>
-
-    <button class="btn full" id="saveBtn">SAVE SERVICE</button>
-    <button class="btn secondary full" id="cancelBtn" style="margin-top:8px">CANCEL</button>
-
-  </div>
+<div class="card">
+<h2>All Services</h2>
+<input id="adminSearch" placeholder="Search services..." oninput="render()">
+<div id="serviceList"></div>
+</div>
+</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAUEVt5ob49pQBAM-jt9FmUx9dQqe5we0U",
-  authDomain: "prem-mobile-service.firebaseapp.com",
-  databaseURL: "https://prem-mobile-service-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "prem-mobile-service",
-  storageBucket: "prem-mobile-service.firebasestorage.app",
-  messagingSenderId: "1047822295327",
-  appId: "1:1047822295327:web:69e98442a22604b22dd02a",
-  measurementId: "G-Z2NC13X65C"
+const firebaseConfig={
+ apiKey:"AIzaSyAUEVt5ob49pQBAM-jt9FmUx9dQqe5we0U",
+ authDomain:"prem-mobile-service.firebaseapp.com",
+ databaseURL:"https://prem-mobile-service-default-rtdb.asia-southeast1.firebasedatabase.app",
+ projectId:"prem-mobile-service",
+ storageBucket:"prem-mobile-service.firebasestorage.app",
+ messagingSenderId:"1047822295327",
+ appId:"1:1047822295327:web:69e98442a22604b22dd02a"
 };
-
-const ADMIN_UID = "bEScesdyPiVzy1KmT3T6CSeSSAg1";
-
 firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
+const servicesRef=db.ref("services");
+const ADMIN_UID="bEScesdyPiVzy1KmT3T6CSeSSAg1";
+let services={};
 
-const auth = firebase.auth();
-const db = firebase.database();
-const servicesRef = db.ref("services");
+const $=id=>document.getElementById(id);
+function msg(t){$("message").textContent=t}
+function loginMsg(t){$("loginMsg").textContent=t}
 
-let services = {};
-let databaseListenerStarted = false;
-
-const $ = id => document.getElementById(id);
-const languages = ["en","hi","hinglish","bho","bn"];
-
-function message(text){
-  $("message").textContent = text;
+async function login(){
+ try{
+  const r=await auth.signInWithEmailAndPassword($("email").value.trim(),$("password").value);
+  if(r.user.uid!==ADMIN_UID){await auth.signOut();throw Error("This account is not authorized.");}
+  loginMsg("Login successful.");
+ }catch(e){loginMsg(e.message)}
 }
-
-// Authentication
-$("loginBtn").onclick = async () => {
-  const email = $("email").value.trim();
-  const password = $("password").value;
-
-  if(!email || !password){
-    message("Enter email and password.");
-    return;
-  }
-
-  try{
-    message("Logging in...");
-    await auth.signInWithEmailAndPassword(email,password);
-  }catch(error){
-    message(error.message);
-  }
-};
-
-$("forgotBtn").onclick = () => {
-  $("loginForm").classList.add("hidden");
-  $("forgotForm").classList.remove("hidden");
-  message("");
-};
-
-$("backBtn").onclick = () => {
-  $("forgotForm").classList.add("hidden");
-  $("loginForm").classList.remove("hidden");
-  message("");
-};
-
-$("resetBtn").onclick = async () => {
-  const email = $("resetEmail").value.trim();
-  if(!email){message("Enter your email.");return;}
-
-  try{
-    await auth.sendPasswordResetEmail(email);
-    message("Reset email sent. Check your inbox.");
-  }catch(error){
-    message(error.message);
-  }
-};
-
-$("logoutBtn").onclick = () => auth.signOut();
-
-auth.onAuthStateChanged(user => {
-  if(!user){
-    $("loginPage").classList.remove("hidden");
-    $("dashboard").classList.add("hidden");
-    databaseListenerStarted = false;
-    servicesRef.off();
-    return;
-  }
-
-  if(user.uid !== ADMIN_UID){
-    alert("Access denied. Unauthorised administrator.");
-    auth.signOut();
-    return;
-  }
-
-  $("loginPage").classList.add("hidden");
-  $("dashboard").classList.remove("hidden");
-
-  if(!databaseListenerStarted){
-    databaseListenerStarted = true;
-    startDatabase();
-  }
+async function resetPassword(){
+ const email=$("email").value.trim();
+ if(!email)return loginMsg("Enter your email first.");
+ try{await auth.sendPasswordResetEmail(email);loginMsg("Password reset email sent.");}
+ catch(e){loginMsg(e.message)}
+}
+async function logout(){await auth.signOut()}
+auth.onAuthStateChanged(user=>{
+ const ok=!!user&&user.uid===ADMIN_UID;
+ $("loginBox").classList.toggle("hidden",ok);
+ $("dashboard").classList.toggle("hidden",!ok);
+ if(user&&!ok)auth.signOut();
+ if(ok)startListener();
 });
-
-// Database
-function startDatabase(){
-  $("connection").textContent = "Connecting to Firebase...";
-
-  servicesRef.on("value", snapshot => {
-    services = snapshot.val() || {};
-    $("connection").textContent = "● Firebase Connected";
-    renderServices();
-  }, error => {
-    $("connection").textContent = "Database error: " + error.message;
-  });
+function startListener(){
+ servicesRef.on("value",snap=>{
+  services=snap.val()||{};
+  render();
+ },e=>msg("Database error: "+e.message));
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const rows=Object.entries(services);
+ $("totalCount").textContent=rows.length;
+ $("activeCount").textContent=rows.filter(x=>x[1].status!=="soon").length;
+ $("soonCount").textContent=rows.filter(x=>x[1].status==="soon").length;
+ const q=$("adminSearch").value.toLowerCase();
+ $("serviceList").innerHTML=rows.filter(([id,s])=>(s.name+" "+s.category+" "+s.description).toLowerCase().includes(q)).map(([id,s])=>`
+ <div class="item">
+ <h3>${esc(s.name)}</h3>
+ <p>${esc(s.category||"")}</p>
+ <p>${esc(s.description||"")}</p>
+ <b>${esc(s.price||"Price on discussion")}</b>
+ <p>Status: ${esc(s.status||"active")}</p>
+ <button onclick="editService('${esc(id)}')">EDIT</button>
+ <button class="secondary" onclick="toggleService('${esc(id)}')">TOGGLE STATUS</button>
+ <button class="danger" onclick="deleteService('${esc(id)}')">DELETE</button>
+ </div>`).join("")||"<p>No services found.</p>";
+}
+function clearForm(){
+ ["serviceId","name","category","description","price","hiName","hiDesc","hinglishName","hinglishDesc","bhoName","bhoDesc","bnName","bnDesc"].forEach(id=>$(id).value="");
+ $("status").value="active";$("formTitle").textContent="Add New Service";
+}
+function editService(id){
+ const s=services[id];if(!s)return;
+ $("serviceId").value=id;$("name").value=s.name||"";
+ $("category").value=s.category||"";$("description").value=s.description||"";
+ $("price").value=s.price||"";$("status").value=s.status||"active";
+ const t=s.translations||{};
+ ["hi","hinglish","bho","bn"].forEach(k=>{
+  $(k+"Name").value=t[k]?.name||"";
+  $(k+"Desc").value=t[k]?.description||"";
+ });
+ $("formTitle").textContent="Edit Service";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+async function saveService(){
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)return;
+ const name=$("name").value.trim();
+ if(!name)return alert("Service name required.");
+ const id=$("serviceId").value||("service_"+Date.now());
+ const old=services[id]||{};
+ const data={
+  name,category:$("category").value.trim(),
+  description:$("description").value.trim(),
+  price:$("price").value.trim(),status:$("status").value,
+  translations:{
+   en:{name,description:$("description").value.trim()},
+   hi:{name:$("hiName").value.trim()||name,description:$("hiDesc").value.trim()||$("description").value.trim()},
+   hinglish:{name:$("hinglishName").value.trim()||name,description:$("hinglishDesc").value.trim()||$("description").value.trim()},
+   bho:{name:$("bhoName").value.trim()||name,description:$("bhoDesc").value.trim()||$("description").value.trim()},
+   bn:{name:$("bnName").value.trim()||name,description:$("bnDesc").value.trim()||$("description").value.trim()}
+  },
+  createdAt:old.createdAt||Date.now(),updatedAt:Date.now()
+ };
+ try{await servicesRef.child(id).set(data);msg("Service saved successfully.");clearForm();}
+ catch(e){msg("Save failed: "+e.message)}
+}
+async function deleteService(id){
+ if(!confirm("Delete this service permanently?"))return;
+ try{await servicesRef.child(id).remove();msg("Service deleted.");}
+ catch(e){msg(e.message)}
+}
+async function toggleService(id){
+ const s=services[id];if(!s)return;
+ try{await servicesRef.child(id).update({status:s.status==="soon"?"active":"soon",updatedAt:Date.now()});}
+ catch(e){msg(e.message)}
 }
 
-// Safe HTML output
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[char]));
-}
-
-function renderServices(){
-  const list = $("serviceList");
-  const query = $("search").value.toLowerCase();
-  const entries = Object.entries(services);
-
-  $("total").textContent = entries.length;
-  $("active").textContent = entries.filter(([,s]) => s.status === "active").length;
-  $("soon").textContent = entries.filter(([,s]) => s.status === "soon").length;
-
-  $("emptyDatabase").classList.toggle("hidden",entries.length !== 0);
-
-  const filtered = entries.filter(([id,s]) => {
-    const translations = s.translations || {};
-    const allText = [
-      s.name,s.category,s.description,
-      ...languages.flatMap(lang => [
-        translations[lang]?.name,
-        translations[lang]?.description
-      ])
-    ].join(" ").toLowerCase();
-
-    return allText.includes(query);
-  });
-
-  if(!filtered.length){
-    list.innerHTML = '<p class="sub">No services found.</p>';
-    return;
-  }
-
-  list.innerHTML = filtered.map(([id,s]) => `
-    <div class="service">
-      <div class="header">
-        <h3>${escapeHTML(s.name)}</h3>
-        <span class="badge">${s.status === "soon" ? "COMING SOON" : "ACTIVE"}</span>
-      </div>
-      <span class="badge">${escapeHTML(s.category)}</span>
-      <p>${escapeHTML(s.description)}</p>
-      <div class="price">${escapeHTML(s.price)}</div>
-      <div class="actions">
-        <button class="btn" data-edit="${escapeHTML(id)}">EDIT</button>
-        <button class="btn secondary" data-toggle="${escapeHTML(id)}">
-          ${s.status === "active" ? "COMING SOON" : "ACTIVATE"}
-        </button>
-        <button class="btn danger" data-delete="${escapeHTML(id)}">DELETE</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-// Form helpers
-function clearTranslations(){
-  for(const lang of languages){
-    $(lang+"Name").value = "";
-    $(lang+"Desc").value = "";
-  }
-}
-
-function openModal(service = null,id = ""){
-  $("modal").classList.remove("hidden");
-  $("modalTitle").textContent = service ? "Edit Service" : "Add Service";
-
-  $("serviceId").value = id;
-  $("serviceCategory").value = service?.category || "";
-  $("servicePrice").value = service?.price || "";
-  $("serviceStatus").value = service?.status || "active";
-
-  clearTranslations();
-
-  if(service){
-    const translations = service.translations || {};
-
-    for(const lang of languages){
-      const item = translations[lang] || {};
-
-      $(lang+"Name").value =
-        item.name || (lang === "en" ? service.name || "" : "");
-
-      $(lang+"Desc").value =
-        item.description || (lang === "en" ? service.description || "" : "");
-    }
-  }
-}
-
-function closeModal(){
-  $("modal").classList.add("hidden");
-}
-
-$("addBtn").onclick = () => openModal();
-$("closeModal").onclick = closeModal;
-$("cancelBtn").onclick = closeModal;
-
-// Save service with translations
-$("saveBtn").onclick = async () => {
-  const id = $("serviceId").value;
-
-  const translations = {};
-
-  for(const lang of languages){
-    translations[lang] = {
-      name: $(lang+"Name").value.trim(),
-      description: $(lang+"Desc").value.trim()
-    };
-  }
-
-  const service = {
-    name: translations.en.name,
-    category: $("serviceCategory").value.trim(),
-    description: translations.en.description,
-    price: $("servicePrice").value.trim(),
-    status: $("serviceStatus").value,
-    translations,
-    updatedAt: Date.now()
+/* Starter data: 18 services; Mobile Repair Labour is intentionally excluded. */
+const starter=[
+["SIM & Network","Mobile Services","SIM activation, network and signal assistance.","Starting ₹20–₹50","सिम और नेटवर्क","सिम, नेटवर्क और सिग्नल सहायता।","SIM aur network ki madad.","सिम आ नेटवर्क के सहायता।","সিম ও নেটওয়ার্ক সহায়তা।"],
+["Software Services","Mobile Services","App installation, updates and software guidance.","Starting ₹10–₹150","सॉफ्टवेयर सेवाएँ","ऐप इंस्टॉलेशन, अपडेट और सॉफ्टवेयर सहायता।","App install, update aur software help.","ऐप इंस्टॉल, अपडेट आ सॉफ्टवेयर मदद।","অ্যাপ ইনস্টল, আপডেট ও সফটওয়্যার সহায়তা।"],
+["Mobile Settings","Mobile Services","Phone settings, backup and setup assistance.","Starting ₹20–₹30","मोबाइल सेटिंग्स","फोन सेटिंग, बैकअप और सेटअप सहायता।","Phone setting, backup aur setup help.","फोन सेटिंग, बैकअप आ सेटअप मदद।","ফোন সেটিংস, ব্যাকআপ ও সেটআপ সহায়তা।"],
+["Instagram Assistance","Social Media","Instagram account and app guidance.","Starting ₹30–₹200","इंस्टाग्राम सहायता","इंस्टाग्राम अकाउंट और ऐप सहायता।","Instagram account aur app help.","इंस्टाग्राम अकाउंट आ ऐप मदद।","ইনস্টাগ্রাম অ্যাকাউন্ট ও অ্যাপ সহায়তা।"],
+["Facebook Assistance","Social Media","Facebook account and app guidance.","Starting ₹30–₹200","फेसबुक सहायता","फेसबुक अकाउंट और ऐप सहायता।","Facebook account aur app help.","फेसबुक अकाउंट आ ऐप मदद।","ফেসবুক অ্যাকাউন্ট ও অ্যাপ সহায়তা।"],
+["WhatsApp Services","Social Media","WhatsApp setup, backup and usage assistance.","Starting ₹30–₹100","व्हाट्सऐप सेवाएँ","व्हाट्सऐप सेटअप, बैकअप और उपयोग सहायता।","WhatsApp setup, backup aur use help.","व्हाट्सऐप सेटअप, बैकअप आ इस्तेमाल मदद।","হোয়াটসঅ্যাপ সেটআপ, ব্যাকআপ ও ব্যবহার সহায়তা।"],
+["Google & Gmail","Account Services","Google account and Gmail assistance.","Starting ₹30–₹50","गूगल और जीमेल","गूगल अकाउंट और जीमेल सहायता।","Google account aur Gmail help.","गूगल अकाउंट आ जीमेल मदद।","গুগল অ্যাকাউন্ট ও জিমেইল সহায়তা।"],
+["Other Apps","App Services","Help with supported mobile applications.","Starting ₹30–₹200","अन्य ऐप्स","अन्य मोबाइल ऐप्स के लिए सहायता।","Dusre mobile apps ki help.","दूसर मोबाइल ऐप के मदद।","অন্যান্য মোবাইল অ্যাপের সহায়তা।"],
+["Digital Services","Digital Services","Online forms and basic digital assistance.","Starting ₹20–₹100","डिजिटल सेवाएँ","ऑनलाइन फॉर्म और डिजिटल सहायता।","Online form aur digital help.","ऑनलाइन फॉर्म आ डिजिटल मदद।","অনলাইন ফর্ম ও ডিজিটাল সহায়তা।"],
+["Security Assistance","Digital Safety","Basic account security and safety guidance.","Starting ₹30–₹50","सुरक्षा सहायता","अकाउंट सुरक्षा और सुरक्षित उपयोग की सलाह।","Account security aur safety guidance.","अकाउंट सुरक्षा आ सुरक्षित इस्तेमाल के सलाह।","অ্যাকাউন্ট নিরাপত্তা ও সুরক্ষা পরামর্শ।"],
+["Printing Machine Services","Coming Soon","Printing machine support will be available soon.","Coming Soon","प्रिंटिंग मशीन सेवाएँ","जल्द उपलब्ध होगी।","Jald available hoga.","जल्द उपलब्ध होई।","শীঘ্রই উপলব্ধ হবে।"],
+["Laptop & Computer Services","Coming Soon","Laptop and computer assistance will be available soon.","Coming Soon","लैपटॉप और कंप्यूटर सेवाएँ","जल्द उपलब्ध होगी।","Jald available hoga.","जल्द उपलब्ध होई।","শীঘ্রই উপলব্ধ হবে।"],
+["Aadhaar Assistance","Digital Services","Guidance for Aadhaar-related online processes.","Assistance Fee ₹100–₹200","आधार सहायता","आधार से जुड़ी ऑनलाइन प्रक्रिया में मार्गदर्शन।","Aadhaar online process mein guidance.","आधार के ऑनलाइन प्रक्रिया में मदद।","আধার সংক্রান্ত অনলাইন প্রক্রিয়ায় নির্দেশনা।"],
+["Website Development","Web Services","Basic website design and development.","Price after discussion","वेबसाइट डेवलपमेंट","वेबसाइट डिजाइन और डेवलपमेंट।","Website design aur development.","वेबसाइट डिजाइन आ डेवलपमेंट।","ওয়েবসাইট ডিজাইন ও ডেভেলপমেন্ট।"],
+["Smartphone Support","Mobile Services","General smartphone setup and usage assistance.","Price after discussion","स्मार्टफोन सहायता","स्मार्टफोन सेटअप और उपयोग सहायता।","Smartphone setup aur use help.","स्मार्टफोन सेटअप आ इस्तेमाल मदद।","স্মার্টফোন সেটআপ ও ব্যবহার সহায়তা।"],
+["Basic SEO","Web Services","Basic search engine optimization guidance.","Price after discussion","बेसिक SEO","सर्च इंजन ऑप्टिमाइजेशन की बुनियादी सहायता।","Basic search engine optimization help.","सर्च इंजन ऑप्टिमाइजेशन के बेसिक मदद।","বেসিক সার্চ ইঞ্জিন অপটিমাইজেশন সহায়তা।"],
+["Digital Document Services","Document Services","Help with basic digital document preparation.","Price after discussion","डिजिटल दस्तावेज़ सेवाएँ","डिजिटल दस्तावेज़ तैयार करने में सहायता।","Digital document banane mein help.","डिजिटल कागज तैयार करे में मदद।","ডিজিটাল নথি তৈরিতে সহায়তা।"],
+["Basic Digital Safety","Digital Safety","Basic online safety and scam awareness guidance.","Price after discussion","बेसिक डिजिटल सुरक्षा","ऑनलाइन सुरक्षा और धोखाधड़ी से बचाव की जानकारी।","Online safety aur scam se bachne ki guidance.","ऑनलाइन सुरक्षा आ ठगी से बचे के जानकारी।","অনলাইন নিরাপত্তা ও প্রতারণা সচেতনতা।"]
+];
+async function loadStarter(){
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)return;
+ if(Object.keys(services).length)return alert("Database is not empty. Starter data was not loaded.");
+ if(!confirm("Add all 18 starter services to Firebase?"))return;
+ const updates={};
+ starter.forEach((a,i)=>{
+  const [name,category,description,price,hiName,hiDesc,hinglishName,hinglishDesc,bhoName,bhoDesc,bnName,bnDesc]=a;
+  const id="starter_"+String(i+1).padStart(2,"0");
+  updates[id]={
+   name,category,description,price,status:price==="Coming Soon"?"soon":"active",
+   translations:{
+    en:{name,description},
+    hi:{name:hiName,description:hiDesc},
+    hinglish:{name:hinglishName,description:hinglishDesc},
+    bho:{name:bhoName,description:bhoDesc},
+    bn:{name:bnName,description:bnDesc}
+   },createdAt:Date.now(),updatedAt:Date.now()
   };
-
-  if(!service.name || !service.category || !service.description || !service.price){
-    alert("Please fill English name, category, description and price.");
-    return;
-  }
-
-  for(const lang of languages){
-    if(!translations[lang].name || !translations[lang].description){
-      alert("Please complete all five language translations.");
-      return;
-    }
-  }
-
-  try{
-    $("saveBtn").disabled = true;
-
-    if(id){
-      await servicesRef.child(id).update(service);
-    }else{
-      await servicesRef.push(service);
-    }
-
-    closeModal();
-    alert("Service saved successfully!");
-  }catch(error){
-    alert("Save failed: " + error.message);
-  }finally{
-    $("saveBtn").disabled = false;
-  }
-};
-
-// Edit, toggle and delete
-$("serviceList").addEventListener("click",async event => {
-  const edit = event.target.closest("[data-edit]");
-  const toggle = event.target.closest("[data-toggle]");
-  const del = event.target.closest("[data-delete]");
-
-  try{
-    if(edit){
-      const id = edit.dataset.edit;
-      openModal(services[id],id);
-    }
-
-    if(toggle){
-      const id = toggle.dataset.toggle;
-      const current = services[id];
-
-      await servicesRef.child(id).update({
-        status: current.status === "active" ? "soon" : "active",
-        updatedAt: Date.now()
-      });
-    }
-
-    if(del){
-      const id = del.dataset.delete;
-
-      if(confirm("Delete this service permanently?")){
-        await servicesRef.child(id).remove();
-      }
-    }
-  }catch(error){
-    alert("Operation failed: " + error.message);
-  }
-});
-
-// Search
-$("search").addEventListener("input",renderServices);
-
-// Starter data
-$("seedBtn").onclick = async () => {
-  if(Object.keys(services).length){
-    alert("Database is not empty.");
-    return;
-  }
-
-  alert(
-    "Starter services will be loaded only after the multilingual starter data is prepared in the public website update."
-  );
-};
+ });
+ try{await servicesRef.update(updates);msg("18 starter services added successfully.");}
+ catch(e){msg("Starter load failed: "+e.message)}
+}
 </script>
 </body>
-  </html>
+</html>
