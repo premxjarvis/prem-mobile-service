@@ -8,12 +8,8 @@
 
 <style>
 :root{
-  --bg:#080808;
-  --card:#141414;
-  --red:#ed1c24;
-  --text:#fff;
-  --muted:#aaa;
-  --border:#292929;
+  --bg:#080808;--card:#141414;--red:#ed1c24;
+  --text:#fff;--muted:#aaa;--border:#292929;
 }
 *{box-sizing:border-box}
 body{
@@ -78,7 +74,7 @@ button{cursor:pointer;font-weight:bold}
   padding:15px;z-index:10;
 }
 .modal-box{
-  width:100%;max-width:500px;max-height:90vh;
+  width:100%;max-width:650px;max-height:92vh;
   overflow:auto;background:#151515;
   border:1px solid #444;border-radius:15px;padding:20px;
 }
@@ -89,6 +85,11 @@ button{cursor:pointer;font-weight:bold}
 .notice{font-size:12px;color:#888;line-height:1.5}
 #message{font-size:13px;color:#ff7777;margin-top:12px}
 hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+.lang-box{
+  border:1px solid #333;border-radius:12px;
+  padding:13px;margin:14px 0;background:#101010;
+}
+.lang-box h3{color:#ff555b;margin:0 0 10px}
 @media(max-width:500px){
   .stats{grid-template-columns:1fr 1fr}
   .container{padding:12px}
@@ -99,39 +100,28 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 <body>
 <div class="container">
 
-<!-- LOGIN -->
 <section id="loginPage" class="login card">
-
   <div class="logo">PREM <span>MOBILE SERVICE</span></div>
   <p class="sub">PRIVATE ADMIN DASHBOARD</p>
   <hr>
 
   <div id="loginForm">
     <h2>Admin Login 🔐</h2>
-
     <label>Admin Email</label>
     <input id="email" type="email" placeholder="Enter email">
-
     <label>Password</label>
     <input id="password" type="password" placeholder="Enter password">
-
     <button class="btn full" id="loginBtn">LOGIN</button>
-    <button class="link" id="forgotBtn"
-      style="background:none;border:0;color:#ff555b;padding:12px 0">
+    <button id="forgotBtn" style="background:none;border:0;color:#ff555b;padding:12px 0">
       Forgot Password?
     </button>
   </div>
 
   <div id="forgotForm" class="hidden">
     <h2>Reset Password</h2>
-    <p class="sub">Enter your registered admin email.</p>
-
     <input id="resetEmail" type="email" placeholder="Admin email">
-
     <button class="btn full" id="resetBtn">SEND RESET EMAIL</button>
-
-    <button class="link" id="backBtn"
-      style="background:none;border:0;color:#ff555b;padding:12px 0">
+    <button id="backBtn" style="background:none;border:0;color:#ff555b;padding:12px 0">
       Back to Login
     </button>
   </div>
@@ -140,43 +130,32 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
   <p class="notice">Authorised administrator access only.</p>
 </section>
 
-<!-- DASHBOARD -->
 <section id="dashboard" class="hidden">
 
   <div class="header">
     <div>
       <div class="logo">PREM <span>ADMIN</span></div>
-      <p class="sub">Service Management System</p>
+      <p class="sub">Multilingual Service Management</p>
     </div>
     <button class="btn danger" id="logoutBtn">LOGOUT</button>
   </div>
 
   <div class="stats">
-    <div class="stat">
-      <strong id="total">0</strong>
-      <small>Total Services</small>
-    </div>
-    <div class="stat">
-      <strong id="active">0</strong>
-      <small>Active</small>
-    </div>
-    <div class="stat">
-      <strong id="soon">0</strong>
-      <small>Coming Soon</small>
-    </div>
+    <div class="stat"><strong id="total">0</strong><small>Total Services</small></div>
+    <div class="stat"><strong id="active">0</strong><small>Active</small></div>
+    <div class="stat"><strong id="soon">0</strong><small>Coming Soon</small></div>
   </div>
 
   <div class="card">
     <div class="header">
       <div>
         <h2>Services Management</h2>
-        <p class="sub">Manage your services and prices.</p>
+        <p class="sub">Manage services, languages and prices.</p>
       </div>
       <button class="btn" id="addBtn">+ ADD SERVICE</button>
     </div>
 
     <input id="search" placeholder="Search services...">
-
     <div id="serviceList"></div>
 
     <div id="emptyDatabase" class="hidden">
@@ -188,18 +167,11 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 
   <div class="card">
     <h3>Firebase Connection</h3>
-    <p class="sub">
-      Backend: Firebase Realtime Database<br>
-      Authentication: Firebase Auth<br>
-      Access: Authorised Admin Only
-    </p>
     <p id="connection" class="sub">Connecting...</p>
   </div>
-
 </section>
 </div>
 
-<!-- SERVICE MODAL -->
 <div id="modal" class="modal hidden">
   <div class="modal-box">
 
@@ -210,15 +182,8 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 
     <input type="hidden" id="serviceId">
 
-    <label>Service Name</label>
-    <input id="serviceName" placeholder="Service name">
-
     <label>Category</label>
-    <input id="serviceCategory" placeholder="Category">
-
-    <label>Description</label>
-    <textarea id="serviceDescription" rows="4"
-      placeholder="Service details"></textarea>
+    <input id="serviceCategory" placeholder="Example: Digital Services">
 
     <label>Price</label>
     <input id="servicePrice" placeholder="Example: ₹100–₹200">
@@ -229,24 +194,64 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
       <option value="soon">Coming Soon</option>
     </select>
 
+    <hr>
+    <h3>🌐 Service Translations</h3>
+    <p class="notice">
+      Fill in the service name and description in all five languages.
+      English is also saved in the original database fields for compatibility.
+    </p>
+
+    <div class="lang-box">
+      <h3>1. English</h3>
+      <label>Service Name</label>
+      <input id="enName" placeholder="English service name">
+      <label>Description</label>
+      <textarea id="enDesc" rows="3" placeholder="English description"></textarea>
+    </div>
+
+    <div class="lang-box">
+      <h3>2. हिन्दी (Hindi)</h3>
+      <label>सेवा का नाम</label>
+      <input id="hiName" placeholder="सेवा का नाम">
+      <label>विवरण</label>
+      <textarea id="hiDesc" rows="3" placeholder="सेवा का विवरण"></textarea>
+    </div>
+
+    <div class="lang-box">
+      <h3>3. Hinglish</h3>
+      <label>Service Name</label>
+      <input id="hinglishName" placeholder="Service ka naam">
+      <label>Description</label>
+      <textarea id="hinglishDesc" rows="3" placeholder="Service ki details"></textarea>
+    </div>
+
+    <div class="lang-box">
+      <h3>4. भोजपुरी (Bhojpuri)</h3>
+      <label>सेवा के नाम</label>
+      <input id="bhoName" placeholder="सेवा के नाम">
+      <label>विवरण</label>
+      <textarea id="bhoDesc" rows="3" placeholder="सेवा के विवरण"></textarea>
+    </div>
+
+    <div class="lang-box">
+      <h3>5. বাংলা (Bengali)</h3>
+      <label>পরিষেবার নাম</label>
+      <input id="bnName" placeholder="পরিষেবার নাম">
+      <label>বিবরণ</label>
+      <textarea id="bnDesc" rows="3" placeholder="পরিষেবার বিবরণ"></textarea>
+    </div>
+
     <button class="btn full" id="saveBtn">SAVE SERVICE</button>
-    <button class="btn secondary full" id="cancelBtn"
-      style="margin-top:8px">CANCEL</button>
+    <button class="btn secondary full" id="cancelBtn" style="margin-top:8px">CANCEL</button>
 
   </div>
 </div>
 
-<!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
-
-// =================================
-// FIREBASE CONFIGURATION
-// =================================
-
 const firebaseConfig = {
   apiKey: "AIzaSyAUEVt5ob49pQBAM-jt9FmUx9dQqe5we0U",
   authDomain: "prem-mobile-service.firebaseapp.com",
@@ -258,7 +263,6 @@ const firebaseConfig = {
   measurementId: "G-Z2NC13X65C"
 };
 
-// Your authorised Firebase UID
 const ADMIN_UID = "bEScesdyPiVzy1KmT3T6CSeSSAg1";
 
 firebase.initializeApp(firebaseConfig);
@@ -268,165 +272,17 @@ const db = firebase.database();
 const servicesRef = db.ref("services");
 
 let services = {};
-
-// =================================
-// STARTER SERVICES
-// =================================
-
-const starterServices = [
-
-{
- name:"SIM & Network",
- category:"Mobile Services",
- description:"Jio/Airtel/Vi PUK assistance, SIM/APN, 4G/5G, network checking and call forwarding.",
- price:"₹20–₹50",
- status:"active"
-},
-{
- name:"Software Services",
- category:"Mobile Services",
- description:"Update assistance, phone setup/reset guidance, data transfer, backup and app installation.",
- price:"₹10–₹150",
- status:"active"
-},
-{
- name:"Mobile Settings",
- category:"Mobile Services",
- description:"Wi-Fi, Bluetooth, Hotspot, keyboard/font, developer options and fingerprint assistance.",
- price:"₹20–₹30",
- status:"active"
-},
-{
- name:"Instagram Assistance",
- category:"Account Assistance",
- description:"Login/password guidance, recovery, 2FA, security check and disabled account appeal.",
- price:"₹30–₹200",
- status:"active"
-},
-{
- name:"Facebook Assistance",
- category:"Account Assistance",
- description:"Login/recovery guidance, page setup, security and disabled account appeal.",
- price:"₹30–₹200",
- status:"active"
-},
-{
- name:"WhatsApp Services",
- category:"Account Assistance",
- description:"Setup, backup/restore, Business setup, chat transfer and privacy assistance.",
- price:"₹30–₹100",
- status:"active"
-},
-{
- name:"Google & Gmail",
- category:"Account Assistance",
- description:"Gmail setup, account recovery guidance, security checks and sync.",
- price:"₹30–₹50",
- status:"active"
-},
-{
- name:"Other Apps",
- category:"Account Assistance",
- description:"Telegram, YouTube and Snapchat login and profile setup assistance.",
- price:"₹30–₹200",
- status:"active"
-},
-{
- name:"Mobile Repair Labour",
- category:"Repair",
- description:"Charging port inspection, speaker/mic cleaning, camera cleaning and replacement labour. Parts extra.",
- price:"Starting ₹30",
- status:"active"
-},
-{
- name:"Digital Services",
- category:"Digital Work",
- description:"Online form assistance, PDF creation/editing, photo resizing and email assistance.",
- price:"₹20–₹100",
- status:"active"
-},
-{
- name:"Security Assistance",
- category:"Digital Safety",
- description:"Suspicious app checking, permissions, privacy settings and suspicious link safety checks.",
- price:"₹30–₹50",
- status:"active"
-},
-{
- name:"Aadhaar Process Guidance",
- category:"Digital Services",
- description:"Download, PVC order, update process guidance, status, appointment, VID, lock/unlock and authentication history. No biometric services.",
- price:"₹100–₹200",
- status:"active"
-},
-{
- name:"Website Development",
- category:"Website Services",
- description:"Personal/business websites, portfolio websites, HTML/CSS and GitHub Pages setup.",
- price:"Discuss before work",
- status:"active"
-},
-{
- name:"Smartphone Support",
- category:"Technical Support",
- description:"Android settings, updates, APN/network, app installation, backup and troubleshooting.",
- price:"Discuss before work",
- status:"active"
-},
-{
- name:"Basic SEO",
- category:"Website Services",
- description:"Website titles, descriptions, Search Console guidance, indexing and mobile-friendly checks.",
- price:"Discuss before work",
- status:"active"
-},
-{
- name:"Digital Document Services",
- category:"Digital Work",
- description:"PDF creation/editing, photo resizing, typing, formatting and email assistance.",
- price:"₹20–₹100",
- status:"active"
-},
-{
- name:"Basic Digital Safety",
- category:"Digital Safety",
- description:"Suspicious app checks, permissions, privacy settings and suspicious link checks.",
- price:"₹30–₹50",
- status:"active"
-},
-{
- name:"Printing Machine Services",
- category:"Coming Soon",
- description:"Printing services will be available soon.",
- price:"Coming Soon",
- status:"soon"
-},
-{
- name:"Laptop & Computer Services",
- category:"Coming Soon",
- description:"Laptop and computer services will be available soon.",
- price:"Coming Soon",
- status:"soon"
-}
-
-];
-
-// =================================
-// ELEMENTS
-// =================================
+let databaseListenerStarted = false;
 
 const $ = id => document.getElementById(id);
+const languages = ["en","hi","hinglish","bho","bn"];
 
 function message(text){
   $("message").textContent = text;
 }
 
-// =================================
-// AUTHENTICATION
-// =================================
-
+// Authentication
 $("loginBtn").onclick = async () => {
-
   const email = $("email").value.trim();
   const password = $("password").value;
 
@@ -456,17 +312,12 @@ $("backBtn").onclick = () => {
 };
 
 $("resetBtn").onclick = async () => {
-
   const email = $("resetEmail").value.trim();
-
-  if(!email){
-    message("Enter your email.");
-    return;
-  }
+  if(!email){message("Enter your email.");return;}
 
   try{
     await auth.sendPasswordResetEmail(email);
-    message("Password reset email sent. Check your inbox.");
+    message("Reset email sent. Check your inbox.");
   }catch(error){
     message(error.message);
   }
@@ -475,15 +326,16 @@ $("resetBtn").onclick = async () => {
 $("logoutBtn").onclick = () => auth.signOut();
 
 auth.onAuthStateChanged(user => {
-
   if(!user){
     $("loginPage").classList.remove("hidden");
     $("dashboard").classList.add("hidden");
+    databaseListenerStarted = false;
+    servicesRef.off();
     return;
   }
 
   if(user.uid !== ADMIN_UID){
-    alert("Access denied. You are not an authorised admin.");
+    alert("Access denied. Unauthorised administrator.");
     auth.signOut();
     return;
   }
@@ -491,73 +343,54 @@ auth.onAuthStateChanged(user => {
   $("loginPage").classList.add("hidden");
   $("dashboard").classList.remove("hidden");
 
-  startDatabase();
+  if(!databaseListenerStarted){
+    databaseListenerStarted = true;
+    startDatabase();
+  }
 });
 
-// =================================
-// DATABASE
-// =================================
-
+// Database
 function startDatabase(){
-
   $("connection").textContent = "Connecting to Firebase...";
 
   servicesRef.on("value", snapshot => {
-
     services = snapshot.val() || {};
-
     $("connection").textContent = "● Firebase Connected";
-
     renderServices();
-
   }, error => {
-
     $("connection").textContent = "Database error: " + error.message;
-
   });
-
 }
 
-// =================================
-// RENDER SERVICES
-// =================================
-
+// Safe HTML output
 function escapeHTML(value){
-
   return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[char]));
-
 }
 
 function renderServices(){
-
   const list = $("serviceList");
   const query = $("search").value.toLowerCase();
-
   const entries = Object.entries(services);
 
   $("total").textContent = entries.length;
-
-  $("active").textContent =
-    entries.filter(([id,s]) => s.status === "active").length;
-
-  $("soon").textContent =
-    entries.filter(([id,s]) => s.status === "soon").length;
+  $("active").textContent = entries.filter(([,s]) => s.status === "active").length;
+  $("soon").textContent = entries.filter(([,s]) => s.status === "soon").length;
 
   $("emptyDatabase").classList.toggle("hidden",entries.length !== 0);
 
   const filtered = entries.filter(([id,s]) => {
+    const translations = s.translations || {};
+    const allText = [
+      s.name,s.category,s.description,
+      ...languages.flatMap(lang => [
+        translations[lang]?.name,
+        translations[lang]?.description
+      ])
+    ].join(" ").toLowerCase();
 
-    const text =
-      (s.name+" "+s.category+" "+s.description).toLowerCase();
-
-    return text.includes(query);
-
+    return allText.includes(query);
   });
 
   if(!filtered.length){
@@ -566,63 +399,57 @@ function renderServices(){
   }
 
   list.innerHTML = filtered.map(([id,s]) => `
-
     <div class="service">
-
       <div class="header">
         <h3>${escapeHTML(s.name)}</h3>
-        <span class="badge">
-          ${s.status === "soon" ? "COMING SOON" : "ACTIVE"}
-        </span>
+        <span class="badge">${s.status === "soon" ? "COMING SOON" : "ACTIVE"}</span>
       </div>
-
       <span class="badge">${escapeHTML(s.category)}</span>
-
       <p>${escapeHTML(s.description)}</p>
-
       <div class="price">${escapeHTML(s.price)}</div>
-
       <div class="actions">
-
-        <button class="btn" data-edit="${escapeHTML(id)}">
-          EDIT
-        </button>
-
+        <button class="btn" data-edit="${escapeHTML(id)}">EDIT</button>
         <button class="btn secondary" data-toggle="${escapeHTML(id)}">
           ${s.status === "active" ? "COMING SOON" : "ACTIVATE"}
         </button>
-
-        <button class="btn danger" data-delete="${escapeHTML(id)}">
-          DELETE
-        </button>
-
+        <button class="btn danger" data-delete="${escapeHTML(id)}">DELETE</button>
       </div>
-
     </div>
-
   `).join("");
-
 }
 
-// =================================
-// ADD / EDIT SERVICE
-// =================================
+// Form helpers
+function clearTranslations(){
+  for(const lang of languages){
+    $(lang+"Name").value = "";
+    $(lang+"Desc").value = "";
+  }
+}
 
 function openModal(service = null,id = ""){
-
   $("modal").classList.remove("hidden");
-
-  $("modalTitle").textContent =
-    service ? "Edit Service" : "Add Service";
+  $("modalTitle").textContent = service ? "Edit Service" : "Add Service";
 
   $("serviceId").value = id;
-
-  $("serviceName").value = service?.name || "";
   $("serviceCategory").value = service?.category || "";
-  $("serviceDescription").value = service?.description || "";
   $("servicePrice").value = service?.price || "";
   $("serviceStatus").value = service?.status || "active";
 
+  clearTranslations();
+
+  if(service){
+    const translations = service.translations || {};
+
+    for(const lang of languages){
+      const item = translations[lang] || {};
+
+      $(lang+"Name").value =
+        item.name || (lang === "en" ? service.name || "" : "");
+
+      $(lang+"Desc").value =
+        item.description || (lang === "en" ? service.description || "" : "");
+    }
+  }
 }
 
 function closeModal(){
@@ -630,152 +457,110 @@ function closeModal(){
 }
 
 $("addBtn").onclick = () => openModal();
-
 $("closeModal").onclick = closeModal;
 $("cancelBtn").onclick = closeModal;
 
+// Save service with translations
 $("saveBtn").onclick = async () => {
-
   const id = $("serviceId").value;
 
+  const translations = {};
+
+  for(const lang of languages){
+    translations[lang] = {
+      name: $(lang+"Name").value.trim(),
+      description: $(lang+"Desc").value.trim()
+    };
+  }
+
   const service = {
-
-    name:$("serviceName").value.trim(),
-    category:$("serviceCategory").value.trim(),
-    description:$("serviceDescription").value.trim(),
-    price:$("servicePrice").value.trim(),
-    status:$("serviceStatus").value,
-    updatedAt:Date.now()
-
+    name: translations.en.name,
+    category: $("serviceCategory").value.trim(),
+    description: translations.en.description,
+    price: $("servicePrice").value.trim(),
+    status: $("serviceStatus").value,
+    translations,
+    updatedAt: Date.now()
   };
 
-  if(!service.name || !service.category ||
-     !service.description || !service.price){
-
-    alert("Please fill all fields.");
+  if(!service.name || !service.category || !service.description || !service.price){
+    alert("Please fill English name, category, description and price.");
     return;
+  }
 
+  for(const lang of languages){
+    if(!translations[lang].name || !translations[lang].description){
+      alert("Please complete all five language translations.");
+      return;
+    }
   }
 
   try{
-
     $("saveBtn").disabled = true;
 
     if(id){
-
       await servicesRef.child(id).update(service);
-
     }else{
-
       await servicesRef.push(service);
-
     }
 
     closeModal();
-
+    alert("Service saved successfully!");
   }catch(error){
-
     alert("Save failed: " + error.message);
-
   }finally{
-
     $("saveBtn").disabled = false;
-
   }
-
 };
 
-// =================================
-// EDIT / DELETE / STATUS
-// =================================
-
+// Edit, toggle and delete
 $("serviceList").addEventListener("click",async event => {
-
   const edit = event.target.closest("[data-edit]");
   const toggle = event.target.closest("[data-toggle]");
   const del = event.target.closest("[data-delete]");
 
   try{
-
     if(edit){
-
       const id = edit.dataset.edit;
       openModal(services[id],id);
-
     }
 
     if(toggle){
-
       const id = toggle.dataset.toggle;
       const current = services[id];
 
       await servicesRef.child(id).update({
-
-        status:current.status === "active" ? "soon" : "active",
-        updatedAt:Date.now()
-
+        status: current.status === "active" ? "soon" : "active",
+        updatedAt: Date.now()
       });
-
     }
 
     if(del){
-
       const id = del.dataset.delete;
 
       if(confirm("Delete this service permanently?")){
-
         await servicesRef.child(id).remove();
-
       }
-
     }
-
   }catch(error){
-
     alert("Operation failed: " + error.message);
-
   }
-
 });
 
-// =================================
-// STARTER DATA
-// =================================
+// Search
+$("search").addEventListener("input",renderServices);
 
+// Starter data
 $("seedBtn").onclick = async () => {
-
-  if(Object.keys(services).length > 0){
-    alert("Database is not empty. Starter data cannot be loaded.");
+  if(Object.keys(services).length){
+    alert("Database is not empty.");
     return;
   }
 
-  if(!confirm("Load all starter services into Firebase?"))return;
-
-  try{
-
-    const data = {};
-
-    starterServices.forEach(service => {
-
-      const key = db.ref("services").push().key;
-      data[key] = service;
-
-    });
-
-    await servicesRef.update(data);
-
-    alert("Starter services added successfully!");
-
-  }catch(error){
-
-    alert("Could not load services: " + error.message);
-
-  }
-
+  alert(
+    "Starter services will be loaded only after the multilingual starter data is prepared in the public website update."
+  );
 };
-
-$("search").addEventListener("input",renderServices);
-
 </script>
 </body>
-  </html>
+</html>
