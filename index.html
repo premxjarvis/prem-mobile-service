@@ -4,273 +4,192 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080808">
-
-<title>PREM MOBILE SERVICE | Kalyanpur, Motihari</title>
-
-<meta name="description" content="PREM MOBILE SERVICE - Mobile software, smartphone settings, account assistance and digital services in Kalyanpur, Motihari, Bihar.">
-<meta name="author" content="Prem Patel">
+<meta name="description" content="PREM MOBILE SERVICE - Smartphone support, digital services, website development and digital assistance.">
+<title>PREM MOBILE SERVICE | Digital Help & Smartphone Support</title>
 
 <style>
-:root {
-  --bg: #080808;
-  --card: #141414;
-  --red: #e50924;
-  --red2: #ff334d;
-  --text: #f5f5f5;
-  --muted: #aaa;
-  --border: #292929;
+:root{
+  --bg:#080808;
+  --card:#141414;
+  --red:#ed1c24;
+  --text:#fff;
+  --muted:#aaa;
+  --border:#292929;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
 }
-
-html {
-  scroll-behavior: smooth;
+button,input,select{font:inherit}
+a{color:inherit;text-decoration:none}
+.container{max-width:1150px;margin:auto;padding:18px}
+header{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#080808f2;
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
 }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+.nav{
+  max-width:1150px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(8,8,8,.96);
-  border-bottom: 1px solid var(--border);
-  padding: 15px 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
+.logo{font-size:21px;font-weight:900}
+.logo span{color:var(--red)}
+.nav-right{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+select{
+  background:#151515;
+  color:white;
+  border:1px solid #444;
+  border-radius:9px;
+  padding:10px;
 }
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
+.btn{
+  display:inline-block;
+  border:0;
+  border-radius:9px;
+  padding:12px 17px;
+  background:var(--red);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  text-align:center;
 }
-
-.logo span {
-  color: var(--red);
+.secondary{background:#292929}
+.hero{
+  text-align:center;
+  padding:75px 15px 55px;
 }
-
-nav {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
+.hero h1{
+  font-size:clamp(30px,6vw,55px);
+  margin:0 0 15px;
+  font-weight:900;
 }
-
-nav a {
-  color: #ddd;
-  text-decoration: none;
-  font-size: 13px;
+.hero h1 span{color:var(--red)}
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  margin:0 auto 25px;
+  line-height:1.7;
 }
-
-nav a:hover {
-  color: var(--red2);
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
-
-.hero {
-  padding: 85px 7%;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at top, #3c0710 0%, #080808 65%);
+.section-title{
+  font-size:26px;
+  margin:35px 0 8px;
 }
-
-.badge {
-  display: inline-block;
-  border: 1px solid var(--red);
-  color: var(--red2);
-  border-radius: 30px;
-  padding: 6px 15px;
-  font-size: 12px;
-  margin-bottom: 20px;
+.sub{color:var(--muted);font-size:14px;line-height:1.7}
+.search{
+  width:100%;
+  padding:14px;
+  background:#111;
+  color:white;
+  border:1px solid #333;
+  border-radius:10px;
+  margin:18px 0;
 }
-
-.hero h1 {
-  font-size: clamp(32px, 7vw, 55px);
-  line-height: 1.15;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:14px;
 }
-
-.hero h1 span {
-  color: var(--red2);
+.service{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  min-height:210px;
 }
-
-.hero p {
-  color: var(--muted);
-  max-width: 600px;
-  margin: 18px auto;
+.service h3{margin:0 0 10px;font-size:18px}
+.service p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  flex:1;
 }
-
-.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 7px;
-  background: var(--red);
-  color: white;
-  border: 1px solid var(--red);
-  cursor: pointer;
+.category{
+  display:inline-block;
+  font-size:11px;
+  color:#ff777b;
+  margin-bottom:8px;
 }
-
-.btn:hover {
-  background: #b90019;
+.price{
+  color:#ff555b;
+  font-weight:bold;
+  margin:8px 0;
 }
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--red);
+.badge{
+  display:inline-block;
+  width:max-content;
+  background:#292929;
+  border-radius:20px;
+  padding:5px 9px;
+  font-size:10px;
+  margin-top:8px;
 }
-
-section {
-  padding: 55px 7%;
+.soon{color:#ffc45c}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
+  margin-top:15px;
 }
-
-.section-title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 10px;
+.info-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:18px;
 }
-
-.section-title span {
-  color: var(--red2);
+.info-card h3{margin-top:0}
+.info-card p{color:var(--muted);font-size:13px;line-height:1.7}
+.contact-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
-
-.section-sub {
-  text-align: center;
-  color: var(--muted);
-  margin-bottom: 30px;
-  font-size: 14px;
+footer{
+  border-top:1px solid var(--border);
+  margin-top:45px;
+  padding:25px 15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
 }
-
-.search-box {
-  display: block;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto 25px;
-  padding: 14px;
-  background: #151515;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: white;
-  outline: none;
+#connection{
+  font-size:11px;
+  color:#888;
+  margin-top:12px;
 }
-
-.search-box:focus {
-  border-color: var(--red);
+.empty{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 18px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  transition: .2s;
-}
-
-.card:hover {
-  border-color: var(--red);
-  transform: translateY(-3px);
-}
-
-.card h3 {
-  margin-bottom: 12px;
-  color: var(--red2);
-  font-size: 18px;
-}
-
-.card p {
-  color: #bbb;
-  font-size: 13px;
-  margin-bottom: 9px;
-}
-
-.price {
-  color: white !important;
-  font-weight: bold;
-  margin-top: 13px;
-}
-
-.coming {
-  border-color: #773b13;
-}
-
-.coming .status {
-  display: inline-block;
-  background: #43250c;
-  color: #ffbd68;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  margin-bottom: 12px;
-}
-
-.info-box {
-  max-width: 800px;
-  margin: auto;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--red);
-  border-radius: 10px;
-  padding: 22px;
-}
-
-.info-box p {
-  color: #ccc;
-  margin: 9px 0;
-  font-size: 14px;
-}
-
-.contact {
-  text-align: center;
-  background: linear-gradient(180deg, #080808, #21050a);
-}
-
-footer {
-  text-align: center;
-  padding: 25px;
-  border-top: 1px solid var(--border);
-  color: #888;
-  font-size: 12px;
-}
-
-footer a {
-  color: var(--red2);
-  text-decoration: none;
-}
-
-.hidden {
-  display: none;
-}
-
-@media(max-width:600px) {
-  header {
-    flex-direction: column;
-  }
-  nav {
-    justify-content: center;
-  }
-  .hero {
-    padding: 65px 5%;
-  }
-  section {
-    padding: 45px 5%;
-  }
+.hidden{display:none!important}
+@media(max-width:550px){
+  .container{padding:13px}
+  .nav{padding:12px}
+  .hero{padding:55px 10px 40px}
+  .logo{font-size:18px}
 }
 </style>
 </head>
@@ -278,259 +197,537 @@ footer a {
 <body>
 
 <header>
-  <div class="logo">PREM <span>MOBILE SERVICE</span></div>
+  <div class="nav">
+    <div class="logo">PREM <span>MOBILE SERVICE</span></div>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#payment">Payment</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <div class="nav-right">
+      <select id="language" aria-label="Select language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="hinglish">Hinglish</option>
+        <option value="bho">भोजपुरी</option>
+        <option value="bn">বাংলা</option>
+      </select>
+
+      <a class="btn secondary" href="admin.html" id="adminLink">
+        Admin Login
+      </a>
+    </div>
+  </div>
 </header>
 
-<div class="hero" id="home">
-  <div class="badge">● ONLINE & OFFLINE SERVICES</div>
+<main class="container">
 
-  <h1>PREM <span>MOBILE</span><br>SERVICE</h1>
-
-  <p>
-    Your Digital Help Partner. Smartphone settings,
-    software assistance, account guidance and digital services.
-  </p>
-
-  <p>📍 Kalyanpur, Motihari, Bihar</p>
-
-  <a class="btn" href="https://wa.me/919241509539">
-    WhatsApp Now
-  </a>
-
-  <a class="btn btn-outline" href="tel:+919241509539">
-    Call Now
-  </a>
-</div>
-
-<section id="services">
-  <h2 class="section-title">Our <span>Services</span></h2>
-  <p class="section-sub">
-    Select a service to view its starting charges.
-    Final charges will be confirmed before work.
-  </p>
-
-  <input
-    type="search"
-    class="search-box"
-    id="search"
-    placeholder="Search services..."
-    oninput="filterServices()"
-  >
-
-  <div class="grid" id="serviceGrid">
-
-    <div class="card">
-      <h3>📱 SIM & Network</h3>
-      <p>Jio / Airtel / Vi PUK assistance</p>
-      <p>SIM and APN settings</p>
-      <p>4G / 5G settings</p>
-      <p>Network issue checking</p>
-      <p>Call forwarding settings</p>
-      <p class="price">Starting ₹20–₹50</p>
-    </div>
-
-    <div class="card">
-      <h3>⚙️ Software Services</h3>
-      <p>Software update assistance</p>
-      <p>Phone setup and reset guidance</p>
-      <p>Data transfer and backup</p>
-      <p>App installation</p>
-      <p>Storage cleaning assistance</p>
-      <p class="price">Starting ₹10–₹150</p>
-    </div>
-
-    <div class="card">
-      <h3>🛠️ Mobile Settings</h3>
-      <p>Wi-Fi / Bluetooth / Hotspot</p>
-      <p>Keyboard and font settings</p>
-      <p>Developer options assistance</p>
-      <p>Fingerprint settings</p>
-      <p class="price">Starting ₹20–₹30</p>
-    </div>
-
-    <div class="card">
-      <h3>📸 Instagram Assistance</h3>
-      <p>Login and password guidance</p>
-      <p>Account recovery guidance</p>
-      <p>Two-factor authentication</p>
-      <p>Account security check</p>
-      <p>Disabled account appeal guidance</p>
-      <p class="price">Starting ₹30–₹200</p>
-    </div>
-
-    <div class="card">
-      <h3>📘 Facebook Assistance</h3>
-      <p>Login and recovery guidance</p>
-      <p>Page setup assistance</p>
-      <p>Security settings</p>
-      <p>Disabled account appeal guidance</p>
-      <p class="price">Starting ₹30–₹200</p>
-    </div>
-
-    <div class="card">
-      <h3>💬 WhatsApp Services</h3>
-      <p>WhatsApp setup</p>
-      <p>Backup and restore assistance</p>
-      <p>WhatsApp Business setup</p>
-      <p>Chat transfer guidance</p>
-      <p>Privacy settings</p>
-      <p class="price">Starting ₹30–₹100</p>
-    </div>
-
-    <div class="card">
-      <h3>📧 Google & Gmail</h3>
-      <p>Gmail setup</p>
-      <p>Account recovery guidance</p>
-      <p>Password reset guidance</p>
-      <p>Google security check</p>
-      <p>Sync settings</p>
-      <p class="price">Starting ₹30–₹50</p>
-    </div>
-
-    <div class="card">
-      <h3>🌐 Other Apps</h3>
-      <p>Telegram assistance</p>
-      <p>YouTube setup</p>
-      <p>Snapchat login guidance</p>
-      <p>Profile setup assistance</p>
-      <p class="price">Starting ₹30–₹200</p>
-    </div>
-
-    <div class="card">
-      <h3>🔧 Mobile Repair Labour</h3>
-      <p>Charging port inspection</p>
-      <p>Speaker / mic cleaning</p>
-      <p>Camera cleaning</p>
-      <p>Battery replacement labour</p>
-      <p>Display replacement labour</p>
-      <p class="price">Starting ₹30</p>
-      <p>Parts and final charges extra. Inspection required.</p>
-    </div>
-
-    <div class="card">
-      <h3>📄 Digital Services</h3>
-      <p>Online form assistance</p>
-      <p>PDF creation and editing</p>
-      <p>Photo to PDF</p>
-      <p>Photo resizing</p>
-      <p>Email assistance</p>
-      <p class="price">Starting ₹20–₹100</p>
-    </div>
-
-    <div class="card">
-      <h3>🔐 Security Assistance</h3>
-      <p>Suspicious app checking</p>
-      <p>App permission checking</p>
-      <p>Privacy settings</p>
-      <p>Suspicious link safety check</p>
-      <p>Backup assistance</p>
-      <p class="price">Starting ₹30–₹50</p>
-    </div>
-
-    <div class="card coming">
-      <span class="status">COMING SOON</span>
-      <h3>🖨️ Printing Machine Services</h3>
-      <p>Printing and related services are currently unavailable.</p>
-      <p>We plan to introduce them in the future.</p>
-    </div>
-
-    <div class="card coming">
-      <span class="status">COMING SOON</span>
-      <h3>💻 Laptop & Computer Services</h3>
-      <p>Laptop and computer services are not available yet.</p>
-      <p>Stay connected for future updates.</p>
-    </div>
-
-  </div>
-</section>
-
-<section id="payment">
-  <h2 class="section-title">Payment <span>Policy</span></h2>
-  <p class="section-sub">Clear charges. Transparent service.</p>
-
-  <div class="info-box">
-    <p><strong>🌐 Online Work:</strong> 50% advance payment and remaining 50% after work completion.</p>
-
-    <p><strong>🤝 Offline Work:</strong> Full payment after work completion.</p>
-
-    <p><strong>💰 Charges:</strong> Final price will be discussed and approved before starting work.</p>
-
-    <p><strong>⚠️ Refund:</strong> If a service cannot be completed, any advance received for that uncompleted work will be handled through an agreed refund.</p>
-
-    <p><strong>🔒 Privacy:</strong> Never share your OTP, UPI PIN, ATM PIN or account password. We do not ask for these secrets.</p>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">About <span>Us</span></h2>
-
-  <div class="info-box">
-    <p>
-      PREM MOBILE SERVICE provides smartphone assistance,
-      digital help and basic technology support.
+  <!-- HERO -->
+  <section class="hero">
+    <h1 id="heroTitle">YOUR DIGITAL <span>HELP DESK</span></h1>
+    <p id="heroDescription">
+      Smartphone support, digital services, website development
+      and everyday technology assistance.
     </p>
-    <p>
-      Services are offered online and offline in the
-      Kalyanpur, Motihari area, subject to availability.
+
+    <div class="hero-actions">
+      <a class="btn" href="https://wa.me/919241509539" id="heroWhatsApp">
+        WhatsApp Us
+      </a>
+      <a class="btn secondary" href="#services" id="heroServices">
+        Explore Services
+      </a>
+    </div>
+
+    <div id="connection">Connecting to services...</div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2 class="section-title" id="servicesTitle">Our Services</h2>
+    <p class="sub" id="servicesSubtitle">
+      Explore our digital and smartphone assistance services.
     </p>
-    <p>
-      We do not guarantee recovery of social media accounts
-      or resolution of network problems. Account-related
-      assistance follows official platform procedures.
+
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search services..."
+      aria-label="Search services"
+    >
+
+    <div id="serviceGrid" class="grid"></div>
+
+    <div id="emptyMessage" class="empty hidden">
+      No services found.
+    </div>
+  </section>
+
+  <!-- PAYMENT -->
+  <section>
+    <h2 class="section-title" id="paymentTitle">Payment Policy</h2>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3 id="onlineTitle">Online Services</h3>
+        <p id="onlineText">
+          50% advance payment and remaining 50% after completion.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3 id="offlineTitle">Offline Services</h3>
+        <p id="offlineText">
+          Payment after completion of the service.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3 id="priceTitle">Price Confirmation</h3>
+        <p id="priceText">
+          Final price will be discussed and approved before work begins.
+        </p>
+      </div>
+    </div>
+
+    <p class="sub" id="securityNote">
+      Never share your OTP, UPI PIN, ATM PIN or account password.
     </p>
-  </div>
-</section>
+  </section>
 
-<section id="contact" class="contact">
-  <h2 class="section-title">Contact <span>Us</span></h2>
+  <!-- ABOUT -->
+  <section>
+    <h2 class="section-title" id="aboutTitle">About</h2>
 
-  <p class="section-sub">
-    Need help? Contact PREM MOBILE SERVICE.
-  </p>
+    <div class="info-card">
+      <h3>PREM PATEL</h3>
+      <p id="aboutText">
+        Founder and Digital Service Provider. Providing smartphone
+        assistance, website development, basic SEO, digital document
+        services and digital safety guidance.
+      </p>
+      <p class="sub" id="locationText">
+        Location: Kalyanpur, Motihari, Bihar.
+      </p>
+    </div>
+  </section>
 
-  <a class="btn" href="tel:+919241509539">📞 Call Us</a>
+  <!-- CONTACT -->
+  <section>
+    <h2 class="section-title" id="contactTitle">Contact Us</h2>
 
-  <a class="btn" href="https://wa.me/919241509539">
-    💬 WhatsApp
-  </a>
+    <div class="info-card">
+      <p id="contactText">
+        Need help? Contact us through WhatsApp or Instagram.
+      </p>
 
-  <a class="btn btn-outline"
-     href="https://instagram.com/patel.darkxx.in"
-     target="_blank" rel="noopener noreferrer">
-    📸 Instagram
-  </a>
+      <div class="contact-buttons">
+        <a class="btn" href="https://wa.me/919241509539">
+          WhatsApp
+        </a>
 
-  <p style="margin-top:20px;color:#aaa">
-    📍 Kalyanpur, Motihari, Bihar
-  </p>
-</section>
+        <a class="btn secondary"
+           href="https://www.instagram.com/patel.darkxx.in/"
+           target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+
+        <a class="btn secondary" href="tel:+919241509539">
+          Call Now
+        </a>
+      </div>
+
+      <p class="sub">Phone: +91 9241509539</p>
+      <p class="sub">Instagram: @patel.darkxx.in</p>
+    </div>
+  </section>
+
+</main>
 
 <footer>
-  <p>© 2026 PREM MOBILE SERVICE</p>
-  <p>Designed with ❤️ by Prem Patel</p>
-  <p>All rights reserved.</p>
+  <div>© <span id="year"></span> PREM MOBILE SERVICE</div>
+  <div id="footerText">All rights reserved.</div>
 </footer>
 
-<script>
-function filterServices() {
-  const query = document.getElementById("search").value.toLowerCase();
-  const cards = document.querySelectorAll("#serviceGrid .card");
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-  cards.forEach(card => {
-    card.classList.toggle(
-      "hidden",
-      !card.innerText.toLowerCase().includes(query)
+<script>
+/* =====================================
+   FIREBASE CONFIGURATION
+===================================== */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAUEVt5ob49pQBAM-jt9FmUx9dQqe5we0U",
+  authDomain: "prem-mobile-service.firebaseapp.com",
+  databaseURL: "https://prem-mobile-service-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "prem-mobile-service",
+  storageBucket: "prem-mobile-service.firebasestorage.app",
+  messagingSenderId: "1047822295327",
+  appId: "1:1047822295327:web:69e98442a22604b22dd02a",
+  measurementId: "G-Z2NC13X65C"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+const servicesRef = db.ref("services");
+
+/* =====================================
+   LANGUAGE CONTENT
+===================================== */
+
+const translations = {
+
+en:{
+  hero:"YOUR DIGITAL <span>HELP DESK</span>",
+  heroDesc:"Smartphone support, digital services, website development and everyday technology assistance.",
+  whatsapp:"WhatsApp Us",explore:"Explore Services",
+  services:"Our Services",servicesSub:"Explore our digital and smartphone assistance services.",
+  search:"Search services...",
+  payment:"Payment Policy",
+  online:"Online Services",
+  onlineText:"50% advance payment and remaining 50% after completion.",
+  offline:"Offline Services",
+  offlineText:"Payment after completion of the service.",
+  price:"Price Confirmation",
+  priceText:"Final price will be discussed and approved before work begins.",
+  security:"Never share your OTP, UPI PIN, ATM PIN or account password.",
+  about:"About",
+  aboutText:"Founder and Digital Service Provider. Providing smartphone assistance, website development, basic SEO, digital document services and digital safety guidance.",
+  location:"Location: Kalyanpur, Motihari, Bihar.",
+  contact:"Contact Us",
+  contactText:"Need help? Contact us through WhatsApp or Instagram.",
+  footer:"All rights reserved.",
+  active:"AVAILABLE",
+  soon:"COMING SOON",
+  empty:"No services found."
+},
+
+hi:{
+  hero:"आपकी डिजिटल <span>हेल्प डेस्क</span>",
+  heroDesc:"स्मार्टफोन सहायता, डिजिटल सेवाएँ, वेबसाइट डेवलपमेंट और तकनीकी सहायता।",
+  whatsapp:"WhatsApp करें",explore:"सेवाएँ देखें",
+  services:"हमारी सेवाएँ",servicesSub:"हमारी डिजिटल और मोबाइल सेवाएँ देखें।",
+  search:"सेवाएँ खोजें...",
+  payment:"भुगतान नीति",
+  online:"ऑनलाइन सेवाएँ",
+  onlineText:"50% अग्रिम भुगतान और बाकी 50% काम पूरा होने पर।",
+  offline:"ऑफलाइन सेवाएँ",
+  offlineText:"काम पूरा होने के बाद भुगतान करें।",
+  price:"कीमत की पुष्टि",
+  priceText:"काम शुरू करने से पहले अंतिम कीमत तय की जाएगी।",
+  security:"अपना OTP, UPI PIN, ATM PIN या पासवर्ड किसी को न बताएं।",
+  about:"हमारे बारे में",
+  aboutText:"संस्थापक और डिजिटल सेवा प्रदाता। स्मार्टफोन सहायता, वेबसाइट डेवलपमेंट, बेसिक SEO, डिजिटल दस्तावेज़ और डिजिटल सुरक्षा में मार्गदर्शन।",
+  location:"स्थान: कल्याणपुर, मोतिहारी, बिहार।",
+  contact:"संपर्क करें",
+  contactText:"मदद के लिए WhatsApp या Instagram पर संपर्क करें।",
+  footer:"सर्वाधिकार सुरक्षित।",
+  active:"उपलब्ध",
+  soon:"जल्द आ रहा है",
+  empty:"कोई सेवा नहीं मिली।"
+},
+
+hinglish:{
+  hero:"YOUR DIGITAL <span>HELP DESK</span>",
+  heroDesc:"Smartphone support, digital services aur website development ki assistance.",
+  whatsapp:"WhatsApp Karo",explore:"Services Dekho",
+  services:"Hamari Services",servicesSub:"Hamari digital aur smartphone services dekho.",
+  search:"Services search karo...",
+  payment:"Payment Policy",
+  online:"Online Services",
+  onlineText:"50% advance aur baaki 50% kaam complete hone ke baad.",
+  offline:"Offline Services",
+  offlineText:"Offline kaam complete hone ke baad payment.",
+  price:"Price Confirmation",
+  priceText:"Kaam shuru hone se pehle final price confirm hoga.",
+  security:"Apna OTP, UPI PIN, ATM PIN ya password kisi ko mat dena.",
+  about:"Hamare Baare Mein",
+  aboutText:"Founder aur Digital Service Provider. Smartphone support, website development, basic SEO, digital documents aur digital safety assistance.",
+  location:"Location: Kalyanpur, Motihari, Bihar.",
+  contact:"Contact Karo",
+  contactText:"Help chahiye? WhatsApp ya Instagram par contact karo.",
+  footer:"All rights reserved.",
+  active:"AVAILABLE",
+  soon:"COMING SOON",
+  empty:"Koi service nahi mili."
+},
+
+bho:{
+  hero:"रउरा डिजिटल <span>हेल्प डेस्क</span>",
+  heroDesc:"मोबाइल सहायता, डिजिटल सेवा, वेबसाइट बनावे आ तकनीकी मदद।",
+  whatsapp:"WhatsApp करीं",explore:"सेवा देखीं",
+  services:"हमार सेवा",servicesSub:"हमार मोबाइल आ डिजिटल सेवा देखीं।",
+  search:"सेवा खोजीं...",
+  payment:"भुगतान के नियम",
+  online:"ऑनलाइन सेवा",
+  onlineText:"50% पहिले आ बाकी 50% काम पूरा भइला के बाद।",
+  offline:"ऑफलाइन सेवा",
+  offlineText:"काम पूरा भइला के बाद भुगतान।",
+  price:"दाम के पुष्टि",
+  priceText:"काम शुरू करे से पहिले पूरा दाम तय होई।",
+  security:"अपना OTP, UPI PIN, ATM PIN आ पासवर्ड केहू के मत बताईं।",
+  about:"हमरा बारे में",
+  aboutText:"संस्थापक आ डिजिटल सेवा प्रदाता। मोबाइल सहायता, वेबसाइट, बेसिक SEO आ डिजिटल सुरक्षा के मार्गदर्शन।",
+  location:"जगह: कल्याणपुर, मोतिहारी, बिहार।",
+  contact:"संपर्क करीं",
+  contactText:"मदद खातिर WhatsApp या Instagram पर संपर्क करीं।",
+  footer:"सभ अधिकार सुरक्षित बा।",
+  active:"उपलब्ध बा",
+  soon:"जल्दी आई",
+  empty:"कवनो सेवा ना मिलल।"
+},
+
+bn:{
+  hero:"আপনার ডিজিটাল <span>হেল্প ডেস্ক</span>",
+  heroDesc:"স্মার্টফোন সহায়তা, ডিজিটাল পরিষেবা এবং ওয়েবসাইট তৈরি করার সহায়তা।",
+  whatsapp:"WhatsApp করুন",explore:"পরিষেবা দেখুন",
+  services:"আমাদের পরিষেবা",servicesSub:"আমাদের ডিজিটাল ও স্মার্টফোন পরিষেবা দেখুন।",
+  search:"পরিষেবা খুঁজুন...",
+  payment:"পেমেন্ট নীতি",
+  online:"অনলাইন পরিষেবা",
+  onlineText:"৫০% অগ্রিম এবং বাকি ৫০% কাজ শেষ হওয়ার পরে।",
+  offline:"অফলাইন পরিষেবা",
+  offlineText:"কাজ শেষ হওয়ার পরে পেমেন্ট।",
+  price:"মূল্য নিশ্চিতকরণ",
+  priceText:"কাজ শুরু করার আগে চূড়ান্ত মূল্য ঠিক করা হবে।",
+  security:"আপনার OTP, UPI PIN, ATM PIN বা পাসওয়ার্ড কাউকে দেবেন না।",
+  about:"আমাদের সম্পর্কে",
+  aboutText:"প্রতিষ্ঠাতা ও ডিজিটাল পরিষেবা প্রদানকারী। স্মার্টফোন সহায়তা, ওয়েবসাইট তৈরি, বেসিক SEO ও ডিজিটাল নিরাপত্তা নির্দেশনা।",
+  location:"অবস্থান: কল্যাণপুর, মোতিহারি, বিহার।",
+  contact:"যোগাযোগ করুন",
+  contactText:"সাহায্যের জন্য WhatsApp বা Instagram-এ যোগাযোগ করুন।",
+  footer:"সর্বস্বত্ব সংরক্ষিত।",
+  active:"উপলব্ধ",
+  soon:"শীঘ্রই আসছে",
+  empty:"কোনো পরিষেবা পাওয়া যায়নি।"
+}
+};
+
+/* =====================================
+   ELEMENT HELPERS
+===================================== */
+
+const $ = id => document.getElementById(id);
+
+let currentLanguage = localStorage.getItem("prem_service_language") || "en";
+let allServices = {};
+let firebaseLoaded = false;
+
+if(!translations[currentLanguage]){
+  currentLanguage = "en";
+}
+
+/* =====================================
+   APPLY LANGUAGE
+===================================== */
+
+function applyLanguage(lang){
+
+  if(!translations[lang]) lang = "en";
+
+  currentLanguage = lang;
+  localStorage.setItem("prem_service_language",lang);
+
+  const t = translations[lang];
+
+  document.documentElement.lang = lang === "hi" ? "hi" :
+    lang === "bn" ? "bn" : "en";
+
+  $("language").value = lang;
+
+  $("heroTitle").innerHTML = t.hero;
+  $("heroDescription").textContent = t.heroDesc;
+  $("heroWhatsApp").textContent = t.whatsapp;
+  $("heroServices").textContent = t.explore;
+
+  $("servicesTitle").textContent = t.services;
+  $("servicesSubtitle").textContent = t.servicesSub;
+  $("search").placeholder = t.search;
+
+  $("paymentTitle").textContent = t.payment;
+  $("onlineTitle").textContent = t.online;
+  $("onlineText").textContent = t.onlineText;
+  $("offlineTitle").textContent = t.offline;
+  $("offlineText").textContent = t.offlineText;
+  $("priceTitle").textContent = t.price;
+  $("priceText").textContent = t.priceText;
+  $("securityNote").textContent = t.security;
+
+  $("aboutTitle").textContent = t.about;
+  $("aboutText").textContent = t.aboutText;
+  $("locationText").textContent = t.location;
+
+  $("contactTitle").textContent = t.contact;
+  $("contactText").textContent = t.contactText;
+  $("footerText").textContent = t.footer;
+
+  renderServices();
+}
+
+$("language").addEventListener("change",event=>{
+  applyLanguage(event.target.value);
+});
+
+/* =====================================
+   SERVICE TRANSLATION
+===================================== */
+
+function getServiceText(service){
+
+  const lang = currentLanguage;
+  const item = service.translations?.[lang];
+
+  if(item && (item.name || item.description)){
+    return {
+      name:item.name || service.name || "",
+      description:item.description || service.description || ""
+    };
+  }
+
+  // Older database records without translations
+  return {
+    name:service.name || "Service",
+    description:service.description || ""
+  };
+}
+
+/* =====================================
+   RENDER SERVICES
+===================================== */
+
+function createTextElement(tag,className,value){
+
+  const element = document.createElement(tag);
+
+  if(className) element.className = className;
+
+  element.textContent = value ?? "";
+
+  return element;
+}
+
+function renderServices(){
+
+  const grid = $("serviceGrid");
+  const empty = $("emptyMessage");
+
+  grid.replaceChildren();
+
+  const query = $("search").value.trim().toLowerCase();
+
+  const entries = Object.entries(allServices);
+
+  let count = 0;
+
+  entries.forEach(([id,service])=>{
+
+    if(!service || typeof service !== "object") return;
+
+    // Only show active and coming-soon services
+    const status = service.status === "soon" ? "soon" : "active";
+
+    const translated = getServiceText(service);
+
+    const searchable = [
+      translated.name,
+      translated.description,
+      service.name,
+      service.description,
+      service.category,
+      service.price
+    ].join(" ").toLowerCase();
+
+    if(query && !searchable.includes(query)) return;
+
+    const card = document.createElement("article");
+    card.className = "service";
+
+    card.appendChild(
+      createTextElement("span","category",service.category || "Service")
     );
+
+    card.appendChild(
+      createTextElement("h3","",translated.name)
+    );
+
+    card.appendChild(
+      createTextElement("p","",translated.description)
+    );
+
+    card.appendChild(
+      createTextElement("div","price",service.price || "")
+    );
+
+    const badge = createTextElement(
+      "span",
+      "badge " + (status === "soon" ? "soon" : ""),
+      status === "soon"
+        ? translations[currentLanguage].soon
+        : translations[currentLanguage].active
+    );
+
+    card.appendChild(badge);
+
+    grid.appendChild(card);
+    count++;
+
   });
+
+  empty.classList.toggle("hidden",count !== 0);
+
+  if(count === 0){
+    empty.textContent = translations[currentLanguage].empty;
+  }
+}
+
+/* =====================================
+   FIREBASE REALTIME DATABASE
+===================================== */
+
+function startFirebase(){
+
+  $("connection").textContent = "Connecting to Firebase...";
+
+  servicesRef.on("value",snapshot=>{
+
+    allServices = snapshot.val() || {};
+    firebaseLoaded = true;
+
+    $("connection").textContent =
+      "● Live services connected";
+
+    renderServices();
+
+  },error=>{
+
+    $("connection").textContent =
+      "Firebase connection error: " + error.message;
+
+  });
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+$("search").addEventListener("input",renderServices);
+
+/* =====================================
+   INITIALIZE
+===================================== */
+
+$("year").textContent = new Date().getFullYear();
+
+applyLanguage(currentLanguage);
+
+try{
+  startFirebase();
+}catch(error){
+  $("connection").textContent =
+    "Unable to connect to services.";
+  console.error(error);
 }
 </script>
 
 </body>
-  </html>
+</html>
