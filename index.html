@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+
+<title>PREM MOBILE SERVICE | Kalyanpur, Motihari</title>
+
+<meta name="description" content="PREM MOBILE SERVICE - Mobile software, smartphone settings, account assistance and digital services in Kalyanpur, Motihari, Bihar.">
+<meta name="author" content="Prem Patel">
+
+<style>
+:root {
+  --bg: #080808;
+  --card: #141414;
+  --red: #e50924;
+  --red2: #ff334d;
+  --text: #f5f5f5;
+  --muted: #aaa;
+  --border: #292929;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,8,8,.96);
+  border-bottom: 1px solid var(--border);
+  padding: 15px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+nav a:hover {
+  color: var(--red2);
+}
+
+.hero {
+  padding: 85px 7%;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, #3c0710 0%, #080808 65%);
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--red);
+  color: var(--red2);
+  border-radius: 30px;
+  padding: 6px 15px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 7vw, 55px);
+  line-height: 1.15;
+}
+
+.hero h1 span {
+  color: var(--red2);
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 600px;
+  margin: 18px auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 7px;
+  background: var(--red);
+  color: white;
+  border: 1px solid var(--red);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #b90019;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--red);
+}
+
+section {
+  padding: 55px 7%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.section-title span {
+  color: var(--red2);
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.search-box {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 25px;
+  padding: 14px;
+  background: #151515;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+.search-box:focus {
+  border-color: var(--red);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  transition: .2s;
+}
+
+.card:hover {
+  border-color: var(--red);
+  transform: translateY(-3px);
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  color: var(--red2);
+  font-size: 18px;
+}
+
+.card p {
+  color: #bbb;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.price {
+  color: white !important;
+  font-weight: bold;
+  margin-top: 13px;
+}
+
+.coming {
+  border-color: #773b13;
+}
+
+.coming .status {
+  display: inline-block;
+  background: #43250c;
+  color: #ffbd68;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+
+.info-box {
+  max-width: 800px;
+  margin: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.info-box p {
+  color: #ccc;
+  margin: 9px 0;
+  font-size: 14px;
+}
+
+.contact {
+  text-align: center;
+  background: linear-gradient(180deg, #080808, #21050a);
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  border-top: 1px solid var(--border);
+  color: #888;
+  font-size: 12px;
+}
+
+footer a {
+  color: var(--red2);
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+@media(max-width:600px) {
+  header {
+    flex-direction: column;
+  }
+  nav {
+    justify-content: center;
+  }
+  .hero {
+    padding: 65px 5%;
+  }
+  section {
+    padding: 45px 5%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">PREM <span>MOBILE SERVICE</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#payment">Payment</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <div class="badge">● ONLINE & OFFLINE SERVICES</div>
+
+  <h1>PREM <span>MOBILE</span><br>SERVICE</h1>
+
+  <p>
+    Your Digital Help Partner. Smartphone settings,
+    software assistance, account guidance and digital services.
+  </p>
+
+  <p>📍 Kalyanpur, Motihari, Bihar</p>
+
+  <a class="btn" href="https://wa.me/919241509539">
+    WhatsApp Now
+  </a>
+
+  <a class="btn btn-outline" href="tel:+919241509539">
+    Call Now
+  </a>
+</div>
+
+<section id="services">
+  <h2 class="section-title">Our <span>Services</span></h2>
+  <p class="section-sub">
+    Select a service to view its starting charges.
+    Final charges will be confirmed before work.
+  </p>
+
+  <input
+    type="search"
+    class="search-box"
+    id="search"
+    placeholder="Search services..."
+    oninput="filterServices()"
+  >
+
+  <div class="grid" id="serviceGrid">
+
+    <div class="card">
+      <h3>📱 SIM & Network</h3>
+      <p>Jio / Airtel / Vi PUK assistance</p>
+      <p>SIM and APN settings</p>
+      <p>4G / 5G settings</p>
+      <p>Network issue checking</p>
+      <p>Call forwarding settings</p>
+      <p class="price">Starting ₹20–₹50</p>
+    </div>
+
+    <div class="card">
+      <h3>⚙️ Software Services</h3>
+      <p>Software update assistance</p>
+      <p>Phone setup and reset guidance</p>
+      <p>Data transfer and backup</p>
+      <p>App installation</p>
+      <p>Storage cleaning assistance</p>
+      <p class="price">Starting ₹10–₹150</p>
+    </div>
+
+    <div class="card">
+      <h3>🛠️ Mobile Settings</h3>
+      <p>Wi-Fi / Bluetooth / Hotspot</p>
+      <p>Keyboard and font settings</p>
+      <p>Developer options assistance</p>
+      <p>Fingerprint settings</p>
+      <p class="price">Starting ₹20–₹30</p>
+    </div>
+
+    <div class="card">
+      <h3>📸 Instagram Assistance</h3>
+      <p>Login and password guidance</p>
+      <p>Account recovery guidance</p>
+      <p>Two-factor authentication</p>
+      <p>Account security check</p>
+      <p>Disabled account appeal guidance</p>
+      <p class="price">Starting ₹30–₹200</p>
+    </div>
+
+    <div class="card">
+      <h3>📘 Facebook Assistance</h3>
+      <p>Login and recovery guidance</p>
+      <p>Page setup assistance</p>
+      <p>Security settings</p>
+      <p>Disabled account appeal guidance</p>
+      <p class="price">Starting ₹30–₹200</p>
+    </div>
+
+    <div class="card">
+      <h3>💬 WhatsApp Services</h3>
+      <p>WhatsApp setup</p>
+      <p>Backup and restore assistance</p>
+      <p>WhatsApp Business setup</p>
+      <p>Chat transfer guidance</p>
+      <p>Privacy settings</p>
+      <p class="price">Starting ₹30–₹100</p>
+    </div>
+
+    <div class="card">
+      <h3>📧 Google & Gmail</h3>
+      <p>Gmail setup</p>
+      <p>Account recovery guidance</p>
+      <p>Password reset guidance</p>
+      <p>Google security check</p>
+      <p>Sync settings</p>
+      <p class="price">Starting ₹30–₹50</p>
+    </div>
+
+    <div class="card">
+      <h3>🌐 Other Apps</h3>
+      <p>Telegram assistance</p>
+      <p>YouTube setup</p>
+      <p>Snapchat login guidance</p>
+      <p>Profile setup assistance</p>
+      <p class="price">Starting ₹30–₹200</p>
+    </div>
+
+    <div class="card">
+      <h3>🔧 Mobile Repair Labour</h3>
+      <p>Charging port inspection</p>
+      <p>Speaker / mic cleaning</p>
+      <p>Camera cleaning</p>
+      <p>Battery replacement labour</p>
+      <p>Display replacement labour</p>
+      <p class="price">Starting ₹30</p>
+      <p>Parts and final charges extra. Inspection required.</p>
+    </div>
+
+    <div class="card">
+      <h3>📄 Digital Services</h3>
+      <p>Online form assistance</p>
+      <p>PDF creation and editing</p>
+      <p>Photo to PDF</p>
+      <p>Photo resizing</p>
+      <p>Email assistance</p>
+      <p class="price">Starting ₹20–₹100</p>
+    </div>
+
+    <div class="card">
+      <h3>🔐 Security Assistance</h3>
+      <p>Suspicious app checking</p>
+      <p>App permission checking</p>
+      <p>Privacy settings</p>
+      <p>Suspicious link safety check</p>
+      <p>Backup assistance</p>
+      <p class="price">Starting ₹30–₹50</p>
+    </div>
+
+    <div class="card coming">
+      <span class="status">COMING SOON</span>
+      <h3>🖨️ Printing Machine Services</h3>
+      <p>Printing and related services are currently unavailable.</p>
+      <p>We plan to introduce them in the future.</p>
+    </div>
+
+    <div class="card coming">
+      <span class="status">COMING SOON</span>
+      <h3>💻 Laptop & Computer Services</h3>
+      <p>Laptop and computer services are not available yet.</p>
+      <p>Stay connected for future updates.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="payment">
+  <h2 class="section-title">Payment <span>Policy</span></h2>
+  <p class="section-sub">Clear charges. Transparent service.</p>
+
+  <div class="info-box">
+    <p><strong>🌐 Online Work:</strong> 50% advance payment and remaining 50% after work completion.</p>
+
+    <p><strong>🤝 Offline Work:</strong> Full payment after work completion.</p>
+
+    <p><strong>💰 Charges:</strong> Final price will be discussed and approved before starting work.</p>
+
+    <p><strong>⚠️ Refund:</strong> If a service cannot be completed, any advance received for that uncompleted work will be handled through an agreed refund.</p>
+
+    <p><strong>🔒 Privacy:</strong> Never share your OTP, UPI PIN, ATM PIN or account password. We do not ask for these secrets.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">About <span>Us</span></h2>
+
+  <div class="info-box">
+    <p>
+      PREM MOBILE SERVICE provides smartphone assistance,
+      digital help and basic technology support.
+    </p>
+    <p>
+      Services are offered online and offline in the
+      Kalyanpur, Motihari area, subject to availability.
+    </p>
+    <p>
+      We do not guarantee recovery of social media accounts
+      or resolution of network problems. Account-related
+      assistance follows official platform procedures.
+    </p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2 class="section-title">Contact <span>Us</span></h2>
+
+  <p class="section-sub">
+    Need help? Contact PREM MOBILE SERVICE.
+  </p>
+
+  <a class="btn" href="tel:+919241509539">📞 Call Us</a>
+
+  <a class="btn" href="https://wa.me/919241509539">
+    💬 WhatsApp
+  </a>
+
+  <a class="btn btn-outline"
+     href="https://instagram.com/patel.darkxx.in"
+     target="_blank" rel="noopener noreferrer">
+    📸 Instagram
+  </a>
+
+  <p style="margin-top:20px;color:#aaa">
+    📍 Kalyanpur, Motihari, Bihar
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 PREM MOBILE SERVICE</p>
+  <p>Designed with ❤️ by Prem Patel</p>
+  <p>All rights reserved.</p>
+</footer>
+
+<script>
+function filterServices() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const cards = document.querySelectorAll("#serviceGrid .card");
+
+  cards.forEach(card => {
+    card.classList.toggle(
+      "hidden",
+      !card.innerText.toLowerCase().includes(query)
+    );
+  });
+}
+</script>
+
+</body>
+  </html>
