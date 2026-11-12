@@ -7,247 +7,520 @@
 <title>PREM MOBILE SERVICE | Admin</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080808;color:#eee;font-family:Arial,sans-serif;padding:18px}
-.wrap{max-width:1000px;margin:auto}
-h1{color:#ff3030}
-.card{background:#151515;border:1px solid #333;border-radius:14px;padding:18px;margin:15px 0}
-input,textarea,select{width:100%;padding:12px;margin:7px 0;background:#080808;color:white;border:1px solid #444;border-radius:8px}
-button{padding:11px 15px;margin:5px 3px;border:0;border-radius:8px;background:#e32636;color:white;font-weight:bold;cursor:pointer}
-button.secondary{background:#333}
-button.danger{background:#9d1725}
-button:disabled{opacity:.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.item{background:#101010;border:1px solid #333;padding:14px;border-radius:10px;margin:10px 0}
-small,.muted{color:#aaa}
-.hidden{display:none!important}
-.status{padding:10px;border-radius:8px;background:#202020;margin:10px 0}
+body{margin:0;background:#080808;color:#eee;font-family:Arial,sans-serif}
+header{background:#111;padding:18px;border-bottom:1px solid #a21d1d}
+header h2{color:#ff3838;margin:0}
+header p{color:#999;margin:6px 0 0}
+.container{max-width:1100px;margin:auto;padding:15px}
+.card{background:#141414;border:1px solid #302020;border-radius:13px;padding:17px;margin:14px 0}
+h3{color:#ff4545;margin-top:0}
+input,textarea,select{width:100%;padding:12px;background:#090909;border:1px solid #393030;color:white;border-radius:8px;margin:7px 0 13px}
+textarea{min-height:85px}
+button{background:#c51e1e;color:white;border:0;padding:11px 15px;border-radius:8px;margin:4px;cursor:pointer;font-weight:bold}
+.secondary{background:#333}
+.danger{background:#790e0e}
+.tabs{display:flex;overflow-x:auto;gap:5px;padding:10px 0}
+.tabs button{white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat,.item{background:#1b1515;padding:14px;border-radius:9px;margin:8px 0}
+.stat b{font-size:24px;color:#ff4545;display:block}
+.item small{color:#aaa}
+label{font-size:13px;color:#bbb}
+#app{display:none}
+#notice{padding:10px;color:#ff7777}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<h1>PREM MOBILE SERVICE</h1>
-<p class="muted">Secure Admin Dashboard</p>
+<header>
+<h2>PREM MOBILE SERVICE</h2>
+<p>ULTIMATE ADMIN CONTROL PANEL</p>
+</header>
+
+<div class="container">
 
 <div class="card" id="loginBox">
-<h2>Admin Login</h2>
-<input id="email" type="email" placeholder="Admin email">
+<h3>ADMIN LOGIN</h3>
+<input id="email" type="email" placeholder="Admin Email">
 <input id="password" type="password" placeholder="Password">
 <button onclick="login()">LOGIN</button>
-<button class="secondary" onclick="resetPassword()">Forgot Password?</button>
-<div id="loginMsg" class="status">Login required.</div>
+<button class="secondary" onclick="resetPassword()">RESET PASSWORD</button>
+<p id="loginMessage"></p>
 </div>
 
-<div id="dashboard" class="hidden">
+<div id="app">
 <div class="card">
-<h2>Dashboard</h2>
+<h3>Dashboard</h3>
 <div class="grid">
-<div class="item">Total Services: <b id="totalCount">0</b></div>
-<div class="item">Active: <b id="activeCount">0</b></div>
-<div class="item">Coming Soon: <b id="soonCount">0</b></div>
+<div class="stat">Total Services<b id="total">0</b></div>
+<div class="stat">Active Services<b id="active">0</b></div>
+<div class="stat">Coming Soon<b id="soon">0</b></div>
+<div class="stat">Enquiries<b id="enquiryCount">0</b></div>
 </div>
 <button class="secondary" onclick="logout()">LOGOUT</button>
-<button onclick="loadStarter()">LOAD 18 STARTER SERVICES</button>
-<p class="muted">Starter services can only be loaded when the database is empty.</p>
-<div id="message" class="status">Connected.</div>
 </div>
 
+<div class="tabs">
+<button onclick="tab('services')">Services</button>
+<button onclick="tab('categories')">Categories</button>
+<button onclick="tab('homepage')">Homepage</button>
+<button onclick="tab('contact')">Contact</button>
+<button onclick="tab('about')">About</button>
+<button onclick="tab('policies')">Policies</button>
+<button onclick="tab('settings')">Settings</button>
+<button onclick="tab('enquiries')">Enquiries</button>
+</div>
+<div id="notice"></div>
+
+<section id="services" class="panel">
 <div class="card">
-<h2 id="formTitle">Add New Service</h2>
-<input id="serviceId" type="hidden">
+<h3>Service Editor</h3>
+<input type="hidden" id="sid">
+
 <label>Service Name</label>
-<input id="name" placeholder="Example: Smartphone Support">
+<input id="sname" placeholder="Service name">
+
 <label>Category</label>
-<input id="category" placeholder="Example: Mobile Services">
+<input id="scategory" placeholder="Category">
+
 <label>Description</label>
-<textarea id="description" rows="3" placeholder="Service details"></textarea>
+<textarea id="sdescription"></textarea>
+
 <label>Price</label>
-<input id="price" placeholder="Example: Starting ₹50">
+<input id="sprice" placeholder="Starting ₹30">
+
 <label>Status</label>
-<select id="status">
+<select id="sstatus">
 <option value="active">Active</option>
 <option value="soon">Coming Soon</option>
 </select>
-<h3>Translations</h3>
-<div class="grid">
-<div><b>Hindi Name</b><input id="hiName"><textarea id="hiDesc" placeholder="Hindi description"></textarea></div>
-<div><b>Hinglish Name</b><input id="hinglishName"><textarea id="hinglishDesc" placeholder="Hinglish description"></textarea></div>
-<div><b>Bhojpuri Name</b><input id="bhoName"><textarea id="bhoDesc" placeholder="Bhojpuri description"></textarea></div>
-<div><b>Bengali Name</b><input id="bnName"><textarea id="bnDesc" placeholder="Bengali description"></textarea></div>
-</div>
-<button onclick="saveService()">SAVE SERVICE</button>
-<button class="secondary" onclick="clearForm()">CLEAR FORM</button>
-</div>
 
-<div class="card">
-<h2>All Services</h2>
-<input id="adminSearch" placeholder="Search services..." oninput="render()">
-<div id="serviceList"></div>
+<h3>Hindi Translation</h3>
+<input id="hiname" placeholder="Hindi service name">
+<textarea id="hidesc" placeholder="Hindi description"></textarea>
+
+<h3>Hinglish Translation</h3>
+<input id="hingname" placeholder="Hinglish service name">
+<textarea id="hingdesc" placeholder="Hinglish description"></textarea>
+
+<h3>Bhojpuri Translation</h3>
+<input id="bhoname" placeholder="Bhojpuri service name">
+<textarea id="bhodesc" placeholder="Bhojpuri description"></textarea>
+
+<h3>Bengali Translation</h3>
+<input id="bnname" placeholder="Bengali service name">
+<textarea id="bndesc" placeholder="Bengali description"></textarea>
+
+<button onclick="saveService()">SAVE SERVICE</button>
+<button class="secondary" onclick="clearForm()">CLEAR</button>
+<button onclick="load67()">LOAD 67 SERVICES</button>
 </div>
+<div class="card">
+<h3>All Services</h3>
+<input id="serviceSearch" placeholder="Search services..." oninput="renderServices()">
+<div id="serviceList">Loading...</div>
+</div>
+</section>
+
+<section id="categories" class="panel" style="display:none">
+<div class="card">
+<h3>Category Manager</h3>
+<input id="catid" placeholder="Category ID">
+<input id="catname" placeholder="Category name">
+<input id="caticon" placeholder="Icon / Emoji">
+<button onclick="saveCategory()">SAVE CATEGORY</button>
+<div id="categoryList"></div>
+</div>
+</section>
+
+<section id="homepage" class="panel" style="display:none">
+<div class="card">
+<h3>Homepage Manager</h3>
+<input id="htitle" placeholder="Main heading">
+<textarea id="hsubtitle" placeholder="Subtitle"></textarea>
+<input id="hbutton" placeholder="Button text">
+<input id="hannouncement" placeholder="Announcement">
+<button onclick="saveObject('homepage',{
+title:val('htitle'),
+subtitle:val('hsubtitle'),
+buttonText:val('hbutton'),
+announcement:val('hannouncement')
+})">SAVE HOMEPAGE</button>
+</div>
+</section>
+
+<section id="contact" class="panel" style="display:none">
+<div class="card">
+<h3>Contact Manager</h3>
+<input id="cphone" placeholder="Phone">
+<input id="cwhatsapp" placeholder="WhatsApp">
+<input id="cinstagram" placeholder="Instagram username">
+<input id="cemail" placeholder="Email">
+<button onclick="saveObject('contact',{
+phone:val('cphone'),
+whatsapp:val('cwhatsapp'),
+instagram:val('cinstagram'),
+email:val('cemail')
+})">SAVE CONTACT</button>
+</div>
+</section>
+
+<section id="about" class="panel" style="display:none">
+<div class="card">
+<h3>About Manager</h3>
+<input id="atitle" placeholder="About heading">
+<textarea id="adescription" placeholder="About description"></textarea>
+<textarea id="awhy" placeholder="Why choose us"></textarea>
+<button onclick="saveObject('about',{
+title:val('atitle'),
+description:val('adescription'),
+whyChoose:val('awhy')
+})">SAVE ABOUT</button>
+</div>
+</section>
+
+<section id="policies" class="panel" style="display:none">
+<div class="card">
+<h3>Policy Manager</h3>
+<textarea id="privacy" placeholder="Privacy policy"></textarea>
+<textarea id="terms" placeholder="Terms and conditions"></textarea>
+<textarea id="payment" placeholder="Payment policy"></textarea>
+<button onclick="saveObject('policies',{
+privacy:val('privacy'),
+terms:val('terms'),
+payment:val('payment')
+})">SAVE POLICIES</button>
+</div>
+</section>
+
+<section id="settings" class="panel" style="display:none">
+<div class="card">
+<h3>Website Settings</h3>
+<input id="sitename" placeholder="Website name">
+<input id="logotext" placeholder="Logo text">
+<select id="maintenance">
+<option value="false">Website Online</option>
+<option value="true">Maintenance Mode</option>
+</select>
+<button onclick="saveObject('settings',{
+siteName:val('sitename'),
+logoText:val('logotext'),
+maintenance:val('maintenance')==='true'
+})">SAVE SETTINGS</button>
+</div>
+</section>
+
+<section id="enquiries" class="panel" style="display:none">
+<div class="card">
+<h3>Customer Enquiries</h3>
+<div id="enquiryList"></div>
+</div>
+</section>
 </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <script>
 const firebaseConfig={
- apiKey:"AIzaSyAUEVt5ob49pQBAM-jt9FmUx9dQqe5we0U",
- authDomain:"prem-mobile-service.firebaseapp.com",
- databaseURL:"https://prem-mobile-service-default-rtdb.asia-southeast1.firebasedatabase.app",
- projectId:"prem-mobile-service",
- storageBucket:"prem-mobile-service.firebasestorage.app",
- messagingSenderId:"1047822295327",
- appId:"1:1047822295327:web:69e98442a22604b22dd02a"
+apiKey:"AIzaSyAUEtV5ob49pQBAM-jt9FmUx9dQqe5we0",
+authDomain:"prem-mobile-service.firebaseapp.com",
+databaseURL:"https://prem-mobile-service-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId:"prem-mobile-service",
+storageBucket:"prem-mobile-service.firebasestorage.app",
+messagingSenderId:"1047822295327",
+appId:"1:1047822295327:web:69e98442a22604b22dd02a"
 };
+
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.database();
-const servicesRef=db.ref("services");
 const ADMIN_UID="bEScesdyPiVzy1KmT3T6CSeSSAg1";
-let services={};
 
-const $=id=>document.getElementById(id);
-function msg(t){$("message").textContent=t}
-function loginMsg(t){$("loginMsg").textContent=t}
+let services={},categories={};
 
-async function login(){
- try{
-  const r=await auth.signInWithEmailAndPassword($("email").value.trim(),$("password").value);
-  if(r.user.uid!==ADMIN_UID){await auth.signOut();throw Error("This account is not authorized.");}
-  loginMsg("Login successful.");
- }catch(e){loginMsg(e.message)}
+function val(id){return document.getElementById(id).value.trim()}
+function msg(t){document.getElementById("notice").textContent=t}
+function escapeHTML(v){
+return String(v??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
 }
-async function resetPassword(){
- const email=$("email").value.trim();
- if(!email)return loginMsg("Enter your email first.");
- try{await auth.sendPasswordResetEmail(email);loginMsg("Password reset email sent.");}
- catch(e){loginMsg(e.message)}
+
+function login(){
+auth.signInWithEmailAndPassword(val("email"),val("password"))
+.catch(e=>document.getElementById("loginMessage").textContent=e.message);
 }
-async function logout(){await auth.signOut()}
+function resetPassword(){
+if(!val("email"))return alert("Enter admin email first.");
+auth.sendPasswordResetEmail(val("email"))
+.then(()=>alert("Password reset email sent."))
+.catch(e=>alert(e.message));
+}
+function logout(){auth.signOut()}
+
 auth.onAuthStateChanged(user=>{
- const ok=!!user&&user.uid===ADMIN_UID;
- $("loginBox").classList.toggle("hidden",ok);
- $("dashboard").classList.toggle("hidden",!ok);
- if(user&&!ok)auth.signOut();
- if(ok)startListener();
+if(!user){
+document.getElementById("loginBox").style.display="block";
+document.getElementById("app").style.display="none";
+return;
+}
+if(user.uid!==ADMIN_UID){
+auth.signOut();
+document.getElementById("loginMessage").textContent="Access denied.";
+return;
+}
+document.getElementById("loginBox").style.display="none";
+document.getElementById("app").style.display="block";
+start();
 });
-function startListener(){
- servicesRef.on("value",snap=>{
-  services=snap.val()||{};
-  render();
- },e=>msg("Database error: "+e.message));
+
+function tab(id){
+document.querySelectorAll(".panel").forEach(x=>x.style.display="none");
+document.getElementById(id).style.display="block";
 }
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function render(){
- const rows=Object.entries(services);
- $("totalCount").textContent=rows.length;
- $("activeCount").textContent=rows.filter(x=>x[1].status!=="soon").length;
- $("soonCount").textContent=rows.filter(x=>x[1].status==="soon").length;
- const q=$("adminSearch").value.toLowerCase();
- $("serviceList").innerHTML=rows.filter(([id,s])=>(s.name+" "+s.category+" "+s.description).toLowerCase().includes(q)).map(([id,s])=>`
- <div class="item">
- <h3>${esc(s.name)}</h3>
- <p>${esc(s.category||"")}</p>
- <p>${esc(s.description||"")}</p>
- <b>${esc(s.price||"Price on discussion")}</b>
- <p>Status: ${esc(s.status||"active")}</p>
- <button onclick="editService('${esc(id)}')">EDIT</button>
- <button class="secondary" onclick="toggleService('${esc(id)}')">TOGGLE STATUS</button>
- <button class="danger" onclick="deleteService('${esc(id)}')">DELETE</button>
- </div>`).join("")||"<p>No services found.</p>";
+
+function start(){
+db.ref("services").on("value",s=>{
+services=s.val()||{};
+renderServices();
+});
+db.ref("categories").on("value",s=>{
+categories=s.val()||{};
+renderCategories();
+});
+db.ref("enquiries").on("value",s=>{
+const data=s.val()||{};
+const entries=Object.entries(data);
+document.getElementById("enquiryCount").textContent=entries.length;
+document.getElementById("enquiryList").innerHTML=entries.map(([id,e])=>`
+<div class="item">
+<b>${escapeHTML(e.name||"Customer")}</b>
+<p>${escapeHTML(e.phone||"")}</p>
+<p>${escapeHTML(e.message||"")}</p>
+<small>${escapeHTML(e.status||"New")}</small><br>
+<button onclick="updateEnquiry('${id}')">MARK CONTACTED</button>
+<button class="danger" onclick="deleteEnquiry('${id}')">DELETE</button>
+</div>`).join("")||"No enquiries.";
+});
+loadContent();
 }
-function clearForm(){
- ["serviceId","name","category","description","price","hiName","hiDesc","hinglishName","hinglishDesc","bhoName","bhoDesc","bnName","bnDesc"].forEach(id=>$(id).value="");
- $("status").value="active";$("formTitle").textContent="Add New Service";
+
+function renderServices(){
+const entries=Object.entries(services);
+document.getElementById("total").textContent=entries.length;
+document.getElementById("active").textContent=entries.filter(x=>x[1].status==="active").length;
+document.getElementById("soon").textContent=entries.filter(x=>x[1].status==="soon").length;
+const q=val("serviceSearch").toLowerCase();
+document.getElementById("serviceList").innerHTML=entries
+.filter(([id,s])=>(s.name+" "+s.category).toLowerCase().includes(q))
+.map(([id,s])=>`
+<div class="item">
+<b>${escapeHTML(s.name)}</b>
+<p>${escapeHTML(s.category)} · ${escapeHTML(s.price)}</p>
+<small>${escapeHTML(s.status)}</small><br>
+<button onclick="editService('${id}')">EDIT</button>
+<button class="secondary" onclick="toggleService('${id}')">TOGGLE</button>
+<button class="danger" onclick="deleteService('${id}')">DELETE</button>
+</div>`).join("")||"No services found.";
 }
-function editService(id){
- const s=services[id];if(!s)return;
- $("serviceId").value=id;$("name").value=s.name||"";
- $("category").value=s.category||"";$("description").value=s.description||"";
- $("price").value=s.price||"";$("status").value=s.status||"active";
- const t=s.translations||{};
- ["hi","hinglish","bho","bn"].forEach(k=>{
-  $(k+"Name").value=t[k]?.name||"";
-  $(k+"Desc").value=t[k]?.description||"";
- });
- $("formTitle").textContent="Edit Service";
- window.scrollTo({top:0,behavior:"smooth"});
-}
+
 async function saveService(){
- if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)return;
- const name=$("name").value.trim();
- if(!name)return alert("Service name required.");
- const id=$("serviceId").value||("service_"+Date.now());
- const old=services[id]||{};
- const data={
-  name,category:$("category").value.trim(),
-  description:$("description").value.trim(),
-  price:$("price").value.trim(),status:$("status").value,
-  translations:{
-   en:{name,description:$("description").value.trim()},
-   hi:{name:$("hiName").value.trim()||name,description:$("hiDesc").value.trim()||$("description").value.trim()},
-   hinglish:{name:$("hinglishName").value.trim()||name,description:$("hinglishDesc").value.trim()||$("description").value.trim()},
-   bho:{name:$("bhoName").value.trim()||name,description:$("bhoDesc").value.trim()||$("description").value.trim()},
-   bn:{name:$("bnName").value.trim()||name,description:$("bnDesc").value.trim()||$("description").value.trim()}
-  },
-  createdAt:old.createdAt||Date.now(),updatedAt:Date.now()
- };
- try{await servicesRef.child(id).set(data);msg("Service saved successfully.");clearForm();}
- catch(e){msg("Save failed: "+e.message)}
+if(!val("sname"))return msg("Service name required.");
+const id=val("sid")||db.ref("services").push().key;
+const old=services[id]||{};
+const name=val("sname"),description=val("sdescription");
+const data={
+name,category:val("scategory"),description,price:val("sprice"),
+status:val("sstatus"),
+translations:{
+en:{name,description},
+hi:{name:val("hiname"),description:val("hidesc")},
+hinglish:{name:val("hingname"),description:val("hingdesc")},
+bho:{name:val("bhoname"),description:val("bhodesc")},
+bn:{name:val("bnname"),description:val("bndesc")}
+},
+createdAt:old.createdAt||Date.now(),updatedAt:Date.now()
+};
+try{await db.ref("services/"+id).set(data);clearForm();msg("Service saved.");}
+catch(e){msg(e.message);}
+}
+
+function editService(id){
+const s=services[id];if(!s)return;
+document.getElementById("sid").value=id;
+document.getElementById("sname").value=s.name||"";
+document.getElementById("scategory").value=s.category||"";
+document.getElementById("sdescription").value=s.description||"";
+document.getElementById("sprice").value=s.price||"";
+document.getElementById("sstatus").value=s.status||"active";
+const t=s.translations||{};
+const map={hi:["hiname","hidesc"],hinglish:["hingname","hingdesc"],bho:["bhoname","bhodesc"],bn:["bnname","bndesc"]};
+Object.entries(map).forEach(([k,ids])=>{
+document.getElementById(ids[0]).value=t[k]?.name||"";
+document.getElementById(ids[1]).value=t[k]?.description||"";
+});
+tab("services");window.scrollTo(0,0);
+}
+
+function clearForm(){
+["sid","sname","scategory","sdescription","sprice","hiname","hidesc","hingname","hingdesc","bhoname","bhodesc","bnname","bndesc"].forEach(id=>document.getElementById(id).value="");
+document.getElementById("sstatus").value="active";
 }
 async function deleteService(id){
- if(!confirm("Delete this service permanently?"))return;
- try{await servicesRef.child(id).remove();msg("Service deleted.");}
- catch(e){msg(e.message)}
+if(!confirm("Permanently delete this service?"))return;
+try{await db.ref("services/"+id).remove();msg("Deleted.");}
+catch(e){msg(e.message);}
 }
 async function toggleService(id){
- const s=services[id];if(!s)return;
- try{await servicesRef.child(id).update({status:s.status==="soon"?"active":"soon",updatedAt:Date.now()});}
- catch(e){msg(e.message)}
+const status=services[id].status==="active"?"soon":"active";
+try{await db.ref("services/"+id).update({status,updatedAt:Date.now()});}
+catch(e){msg(e.message);}
 }
 
-/* Starter data: 18 services; Mobile Repair Labour is intentionally excluded. */
 const starter=[
-["SIM & Network","Mobile Services","SIM activation, network and signal assistance.","Starting ₹20–₹50","सिम और नेटवर्क","सिम, नेटवर्क और सिग्नल सहायता।","SIM aur network ki madad.","सिम आ नेटवर्क के सहायता।","সিম ও নেটওয়ার্ক সহায়তা।"],
-["Software Services","Mobile Services","App installation, updates and software guidance.","Starting ₹10–₹150","सॉफ्टवेयर सेवाएँ","ऐप इंस्टॉलेशन, अपडेट और सॉफ्टवेयर सहायता।","App install, update aur software help.","ऐप इंस्टॉल, अपडेट आ सॉफ्टवेयर मदद।","অ্যাপ ইনস্টল, আপডেট ও সফটওয়্যার সহায়তা।"],
-["Mobile Settings","Mobile Services","Phone settings, backup and setup assistance.","Starting ₹20–₹30","मोबाइल सेटिंग्स","फोन सेटिंग, बैकअप और सेटअप सहायता।","Phone setting, backup aur setup help.","फोन सेटिंग, बैकअप आ सेटअप मदद।","ফোন সেটিংস, ব্যাকআপ ও সেটআপ সহায়তা।"],
-["Instagram Assistance","Social Media","Instagram account and app guidance.","Starting ₹30–₹200","इंस्टाग्राम सहायता","इंस्टाग्राम अकाउंट और ऐप सहायता।","Instagram account aur app help.","इंस्टाग्राम अकाउंट आ ऐप मदद।","ইনস্টাগ্রাম অ্যাকাউন্ট ও অ্যাপ সহায়তা।"],
-["Facebook Assistance","Social Media","Facebook account and app guidance.","Starting ₹30–₹200","फेसबुक सहायता","फेसबुक अकाउंट और ऐप सहायता।","Facebook account aur app help.","फेसबुक अकाउंट आ ऐप मदद।","ফেসবুক অ্যাকাউন্ট ও অ্যাপ সহায়তা।"],
-["WhatsApp Services","Social Media","WhatsApp setup, backup and usage assistance.","Starting ₹30–₹100","व्हाट्सऐप सेवाएँ","व्हाट्सऐप सेटअप, बैकअप और उपयोग सहायता।","WhatsApp setup, backup aur use help.","व्हाट्सऐप सेटअप, बैकअप आ इस्तेमाल मदद।","হোয়াটসঅ্যাপ সেটআপ, ব্যাকআপ ও ব্যবহার সহায়তা।"],
-["Google & Gmail","Account Services","Google account and Gmail assistance.","Starting ₹30–₹50","गूगल और जीमेल","गूगल अकाउंट और जीमेल सहायता।","Google account aur Gmail help.","गूगल अकाउंट आ जीमेल मदद।","গুগল অ্যাকাউন্ট ও জিমেইল সহায়তা।"],
-["Other Apps","App Services","Help with supported mobile applications.","Starting ₹30–₹200","अन्य ऐप्स","अन्य मोबाइल ऐप्स के लिए सहायता।","Dusre mobile apps ki help.","दूसर मोबाइल ऐप के मदद।","অন্যান্য মোবাইল অ্যাপের সহায়তা।"],
-["Digital Services","Digital Services","Online forms and basic digital assistance.","Starting ₹20–₹100","डिजिटल सेवाएँ","ऑनलाइन फॉर्म और डिजिटल सहायता।","Online form aur digital help.","ऑनलाइन फॉर्म आ डिजिटल मदद।","অনলাইন ফর্ম ও ডিজিটাল সহায়তা।"],
-["Security Assistance","Digital Safety","Basic account security and safety guidance.","Starting ₹30–₹50","सुरक्षा सहायता","अकाउंट सुरक्षा और सुरक्षित उपयोग की सलाह।","Account security aur safety guidance.","अकाउंट सुरक्षा आ सुरक्षित इस्तेमाल के सलाह।","অ্যাকাউন্ট নিরাপত্তা ও সুরক্ষা পরামর্শ।"],
-["Printing Machine Services","Coming Soon","Printing machine support will be available soon.","Coming Soon","प्रिंटिंग मशीन सेवाएँ","जल्द उपलब्ध होगी।","Jald available hoga.","जल्द उपलब्ध होई।","শীঘ্রই উপলব্ধ হবে।"],
-["Laptop & Computer Services","Coming Soon","Laptop and computer assistance will be available soon.","Coming Soon","लैपटॉप और कंप्यूटर सेवाएँ","जल्द उपलब्ध होगी।","Jald available hoga.","जल्द उपलब्ध होई।","শীঘ্রই উপলব্ধ হবে।"],
-["Aadhaar Assistance","Digital Services","Guidance for Aadhaar-related online processes.","Assistance Fee ₹100–₹200","आधार सहायता","आधार से जुड़ी ऑनलाइन प्रक्रिया में मार्गदर्शन।","Aadhaar online process mein guidance.","आधार के ऑनलाइन प्रक्रिया में मदद।","আধার সংক্রান্ত অনলাইন প্রক্রিয়ায় নির্দেশনা।"],
-["Website Development","Web Services","Basic website design and development.","Price after discussion","वेबसाइट डेवलपमेंट","वेबसाइट डिजाइन और डेवलपमेंट।","Website design aur development.","वेबसाइट डिजाइन आ डेवलपमेंट।","ওয়েবসাইট ডিজাইন ও ডেভেলপমেন্ট।"],
-["Smartphone Support","Mobile Services","General smartphone setup and usage assistance.","Price after discussion","स्मार्टफोन सहायता","स्मार्टफोन सेटअप और उपयोग सहायता।","Smartphone setup aur use help.","स्मार्टफोन सेटअप आ इस्तेमाल मदद।","স্মার্টফোন সেটআপ ও ব্যবহার সহায়তা।"],
-["Basic SEO","Web Services","Basic search engine optimization guidance.","Price after discussion","बेसिक SEO","सर्च इंजन ऑप्टिमाइजेशन की बुनियादी सहायता।","Basic search engine optimization help.","सर्च इंजन ऑप्टिमाइजेशन के बेसिक मदद।","বেসিক সার্চ ইঞ্জিন অপটিমাইজেশন সহায়তা।"],
-["Digital Document Services","Document Services","Help with basic digital document preparation.","Price after discussion","डिजिटल दस्तावेज़ सेवाएँ","डिजिटल दस्तावेज़ तैयार करने में सहायता।","Digital document banane mein help.","डिजिटल कागज तैयार करे में मदद।","ডিজিটাল নথি তৈরিতে সহায়তা।"],
-["Basic Digital Safety","Digital Safety","Basic online safety and scam awareness guidance.","Price after discussion","बेसिक डिजिटल सुरक्षा","ऑनलाइन सुरक्षा और धोखाधड़ी से बचाव की जानकारी।","Online safety aur scam se bachne ki guidance.","ऑनलाइन सुरक्षा आ ठगी से बचे के जानकारी।","অনলাইন নিরাপত্তা ও প্রতারণা সচেতনতা।"]
+["jio-puk","SIM & Network","Jio PUK Unlock Assistance","₹30–50"],
+["airtel-puk","SIM & Network","Airtel PUK Assistance","₹30–50"],
+["vi-puk","SIM & Network","Vi PUK Assistance","₹30–50"],
+["apn","SIM & Network","SIM / APN Setting","₹20–30"],
+["4g-5g","SIM & Network","4G / 5G Setting","₹30"],
+["network-check","SIM & Network","Network Issue Check","₹20"],
+["call-forward","SIM & Network","Call Forwarding Setting","₹30"],
+["software-update","Software Services","Software Update","₹50–100"],
+["factory-reset","Software Services","Factory Reset Assistance","₹50"],
+["phone-setup","Software Services","Phone Setup","₹50"],
+["data-transfer","Software Services","Data Transfer","₹50–150"],
+["backup-restore","Software Services","Backup / Restore","₹50–100"],
+["app-install","Software Services","App Installation","₹10–20"],
+["storage-clean","Software Services","Storage Cleaning","₹30"],
+["wifi-bluetooth","Mobile Settings","Wi-Fi / Bluetooth Setting","₹20"],
+["hotspot-ringtone","Mobile Settings","Hotspot / Ringtone Setting","₹20"],
+["font-keyboard","Mobile Settings","Font / Keyboard Setting","₹20"],
+["developer-options","Mobile Settings","Developer Options Setup","₹30"],
+["fingerprint","Mobile Settings","Fingerprint Setup","₹30"],
+["language-setting","Mobile Settings","Language Setting","₹20"],
+["instagram-recovery","Instagram Help","Instagram Account Recovery Guidance","₹100–200"],
+["instagram-disabled","Instagram Help","Disabled Account Appeal Guidance","₹50–100"],
+["instagram-login","Instagram Help","Login Issue Help","₹30–50"],
+["instagram-password","Instagram Help","Password Reset Guidance","₹30"],
+["instagram-2fa","Instagram Help","2FA Recovery Guidance","₹50–100"],
+["instagram-security","Instagram Help","Security Check","₹50"],
+["facebook-recovery","Facebook Help","Facebook Account Recovery Guidance","₹50–150"],
+["facebook-disabled","Facebook Help","Disabled Account Appeal Guidance","₹50–100"],
+["facebook-login","Facebook Help","Login Issue Help","₹30–50"],
+["facebook-page","Facebook Help","Page Setup","₹50"],
+["facebook-page-recovery","Facebook Help","Page Recovery Guidance","₹100–200"],
+["whatsapp-recovery","WhatsApp Help","Account Recovery Guidance","₹50–100"],
+["whatsapp-setup","WhatsApp Help","WhatsApp Setup","₹30"],
+["whatsapp-backup","WhatsApp Help","Backup / Restore","₹50–100"],
+["whatsapp-business","WhatsApp Help","Business Setup","₹50"],
+["whatsapp-transfer","WhatsApp Help","Chat Transfer","₹50–100"],
+["whatsapp-privacy","WhatsApp Help","Privacy Settings","₹30"],
+["google-recovery","Google & Gmail","Google Account Recovery Guidance","₹50–100"],
+["gmail-setup","Google & Gmail","Gmail Setup","₹30"],
+["gmail-password","Google & Gmail","Password Reset Guidance","₹30"],
+["google-security","Google & Gmail","Security Check","₹50"],
+["google-sync","Google & Gmail","Sync Setting","₹30"],
+["telegram-recovery","Other Platforms","Telegram Recovery Guidance","₹50–100"],
+["youtube-setup","Other Platforms","YouTube Channel Setup","₹50"],
+["youtube-recovery","Other Platforms","YouTube Recovery Guidance","₹100–200"],
+["snapchat-login","Other Platforms","Snapchat Login Help","₹30–50"],
+["social-profile","Other Platforms","Social Profile Setup","₹30–50"],
+["charging-clean","Repairing Labour","Charging / Speaker Cleaning","₹50"],
+["mic-clean","Repairing Labour","Mic / Earpiece Cleaning","₹50"],
+["camera-clean","Repairing Labour","Camera Cleaning","₹30"],
+["battery-labour","Repairing Labour","Battery Replacement Labour","₹100–200"],
+["display-labour","Repairing Labour","Display Replacement Labour","₹150–300"],
+["charging-jack","Repairing Labour","Charging Jack Labour","₹100–200"],
+["part-replacement","Repairing Labour","Part Replacement","On inspection"],
+["online-form","Digital & Online","Online Form Assistance","₹30–100"],
+["pdf-making","Digital & Online","PDF Making","₹20–50"],
+["photo-resize","Digital & Online","Photo Resize","₹20"],
+["photo-pdf","Digital & Online","Photo to PDF","₹20"],
+["document-scan","Digital & Online","Document Scan","₹10–20"],
+["email-help","Digital & Online","Email Sending Help","₹20"],
+["printing","Digital & Online","Printing","₹5–10/page"],
+["suspicious-app","Phone Security","Suspicious App Check","₹30"],
+["app-permission","Phone Security","App Permission Check","₹30"],
+["privacy-check","Phone Security","Privacy Check","₹30"],
+["security-settings","Phone Security","Security Settings","₹30"],
+["backup-help","Phone Security","Backup Assistance","₹50"],
+["link-safety","Phone Security","Suspicious Link Safety Check","₹30"]
 ];
-async function loadStarter(){
- if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)return;
- if(Object.keys(services).length)return alert("Database is not empty. Starter data was not loaded.");
- if(!confirm("Add all 18 starter services to Firebase?"))return;
- const updates={};
- starter.forEach((a,i)=>{
-  const [name,category,description,price,hiName,hiDesc,hinglishName,hinglishDesc,bhoName,bhoDesc,bnName,bnDesc]=a;
-  const id="starter_"+String(i+1).padStart(2,"0");
-  updates[id]={
-   name,category,description,price,status:price==="Coming Soon"?"soon":"active",
-   translations:{
-    en:{name,description},
-    hi:{name:hiName,description:hiDesc},
-    hinglish:{name:hinglishName,description:hinglishDesc},
-    bho:{name:bhoName,description:bhoDesc},
-    bn:{name:bnName,description:bnDesc}
-   },createdAt:Date.now(),updatedAt:Date.now()
-  };
- });
- try{await servicesRef.update(updates);msg("18 starter services added successfully.");}
- catch(e){msg("Starter load failed: "+e.message)}
+
+async function load67(){
+if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)return alert("Admin access denied.");
+if(starter.length!==67)return alert("Service count error.");
+if(!confirm("Add missing starter services? Existing services will not be overwritten."))return;
+try{
+const snap=await db.ref("services").once("value");
+const existing=snap.val()||{};
+const updates={};
+starter.forEach(([id,category,name,price])=>{
+if(existing[id])return;
+updates[id]={
+name,category,price,status:"active",
+description:name+" assistance. Contact us for details.",
+translations:{
+en:{name,description:name+" assistance."},
+hi:{name:"",description:""},
+hinglish:{name:"",description:""},
+bho:{name:"",description:""},
+bn:{name:"",description:""}
+},
+createdAt:Date.now(),updatedAt:Date.now()
+};
+});
+if(!Object.keys(updates).length)return alert("All starter services already exist.");
+await db.ref("services").update(updates);
+alert(Object.keys(updates).length+" services added.");
+}catch(e){alert(e.message);}
+}
+
+async function saveCategory(){
+const id=val("catid").toLowerCase().replace(/[^a-z0-9_-]/g,"-");
+if(!id||!val("catname"))return msg("Category ID and name required.");
+try{
+await db.ref("categories/"+id).set({name:val("catname"),icon:val("caticon"),updatedAt:Date.now()});
+msg("Category saved.");
+}catch(e){msg(e.message);}
+}
+function renderCategories(){
+document.getElementById("categoryList").innerHTML=Object.entries(categories).map(([id,c])=>`
+<div class="item">${escapeHTML(c.icon||"")} ${escapeHTML(c.name||id)}
+<button class="danger" onclick="deleteCategory('${id}')">DELETE</button></div>`).join("");
+}
+async function deleteCategory(id){
+if(confirm("Delete category? Services will remain."))await db.ref("categories/"+id).remove();
+}
+async function saveObject(path,data){
+try{await db.ref(path).update({...data,updatedAt:Date.now()});msg(path+" saved.");}
+catch(e){msg(e.message);}
+}
+async function loadContent(){
+const paths=["homepage","contact","about","policies","settings"];
+for(const path of paths){
+const snap=await db.ref(path).once("value");
+const d=snap.val()||{};
+const map={
+homepage:{title:"htitle",subtitle:"hsubtitle",buttonText:"hbutton",announcement:"hannouncement"},
+contact:{phone:"cphone",whatsapp:"cwhatsapp",instagram:"cinstagram",email:"cemail"},
+about:{title:"atitle",description:"adescription",whyChoose:"awhy"},
+policies:{privacy:"privacy",terms:"terms",payment:"payment"},
+settings:{siteName:"sitename",logoText:"logotext",maintenance:"maintenance"}
+};
+Object.entries(map[path]).forEach(([key,id])=>{
+if(d[key]!==undefined)document.getElementById(id).value=String(d[key]);
+});
+}
+}
+async function updateEnquiry(id){
+await db.ref("enquiries/"+id).update({status:"Contacted",updatedAt:Date.now()});
+}
+async function deleteEnquiry(id){
+if(confirm("Delete enquiry?"))await db.ref("enquiries/"+id).remove();
 }
 </script>
 </body>
